@@ -85,7 +85,7 @@ React.createElement 会构建一个 JavaScript 对象来描述 HTML 结构的信
 有了这个表示 HTML 结构和信息的对象以后，就可以拿去构造真正的 DOM 元素，然后把这个 DOM 元素塞到页面上。这也是我们最后一段代码中 ReactDOM.render 所干的事情。
 
 **JSX编译过程**
-![](http://ww1.sinaimg.cn/large/006evuW4gy1g0ywgqc5z4j30hm075aaq.jpg)
+![](../../images/006evuW4gy1g0ywgqc5z4j30hm075aaq.jpg)
 为什么不直接从 JSX 直接渲染构造 DOM 结构，而是要经过中间这么一层呢？ 
 
 第一个原因是  

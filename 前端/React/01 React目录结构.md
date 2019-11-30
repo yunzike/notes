@@ -1,8 +1,8 @@
-![React项目总目录结构](https://ws3.sinaimg.cn/large/006tNbRwgy1fxv3ha7r97j30m207y0td.jpg)![React项目总目录结构](https://ws3.sinaimg.cn/large/006tNbRwgy1fxv3ha7r97j30m207y0td.jpg)
+![React项目总目录结构](../../images/006tNbRwgy1fxv3ha7r97j30m207y0td.jpg)![React项目总目录结构](../../images/006tNbRwgy1fxv3ha7r97j30m207y0td-20191130224134657.jpg)
 #### 1、package.json 定义项目所需模块及配置信息
-![](https://ws3.sinaimg.cn/large/006tNbRwgy1fxv3j184d8j30d60kywfl.jpg)![](https://ws3.sinaimg.cn/large/006tNbRwgy1fxv3j184d8j30d60kywfl.jpg)
+![](../../images/006tNbRwgy1fxv3j184d8j30d60kywfl.jpg)![](../../images/006tNbRwgy1fxv3j184d8j30d60kywfl-20191130224147563.jpg)
 #### 2、public文件夹
-![](https://ws1.sinaimg.cn/large/006tNbRwgy1fxv3js69x5j30n4050dg4.jpg)![](https://ws1.sinaimg.cn/large/006tNbRwgy1fxv3js69x5j30n4050dg4.jpg)
+![](../../images/006tNbRwgy1fxv3js69x5j30n4050dg4.jpg)![](../../images/006tNbRwgy1fxv3js69x5j30n4050dg4-20191130224201307.jpg)
 
 1)favicon.ico
 
@@ -13,14 +13,13 @@
 项目的入口文件，引用了第三方类库啊，还可以引入cdn
 
 <div id="root"></div>是项目的总容器，所有的内容存储在这个容器中。这个容器有且只能有一个。
-
 3)manifest.json
 
 允许将站点添加至主屏幕，是 PWA 提供的一项重要功能，当前 manifest.json 的标准仍属于草案阶段，Chrome 和 Firefox 已经实现了这个功能，微软正努力在 Edge 浏览器上实现，Apple 目前仍在考虑中
 
 #### 3、src文件夹
 
-![](https://ws4.sinaimg.cn/large/006tNbRwgy1fxv3nyp4mnj30o008fwfc.jpg)![](https://ws4.sinaimg.cn/large/006tNbRwgy1fxv3nyp4mnj30o008fwfc.jpg)
+![](../../images/006tNbRwgy1fxv3nyp4mnj30o008fwfc.jpg)![](../../images/006tNbRwgy1fxv3nyp4mnj30o008fwfc-20191130224212969.jpg)
 
 1).index.js
 

@@ -24,7 +24,7 @@
 
 - 编译执行过程
   
-  ![屏幕快照 2019-01-01 下午3.07.38.png](http://ww1.sinaimg.cn/large/006evuW4gy1g8y33udgaaj313606m0vm.jpg)
+  ![屏幕快照 2019-01-01 下午3.07.38.png](../../images/006evuW4gy1g8y33udgaaj313606m0vm.jpg)
   
   .java       java源程序
   
@@ -60,4 +60,4 @@
   
   /**      */   文档注释（说明注释）
   
-  ![截屏2019-11-1501.36.48.png](http://ww1.sinaimg.cn/large/006evuW4gy1g8y39r8t4aj31g60vk1a4.jpg)
+  ![019-11-1501.36.48.png](../../images/006evuW4gy1g8y39r8t4aj31g60vk1a4.jpg)
