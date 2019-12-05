@@ -4,15 +4,14 @@
 
 - 概述
   
-  javax.servlet.jsp.JspWriter对象的实例，表示一个输出流，用于向客户端输出东西。javax.servlet.http.HttpServletRequest接口的实例化对象，封装了客户端请求的  
-  所有信息（请求头、提交的参数、Cookie信息、客户端浏览器信息等）javax.servlet.http.HttpServletRequest接口的实例化对象，封装了客户端请求的  
-  所有信息（请求头、提交的参数、Cookie信息、客户端浏览器信息等）
-
+  javax.servlet.jsp.JspWriter对象的实例，表示一个输出流，用于向客户端输出东西。javax.servlet.http.HttpServletRequest接口的实例化对象，封装了客户端请求的所有信息（请求头、提交的参数、Cookie信息、客户端浏览器信息等）
+  
 - 常用方法
   
   ```java
   print();
   println();
+  write();
   newline();      //输出一个空行
   close();        //关闭输出流
   ```

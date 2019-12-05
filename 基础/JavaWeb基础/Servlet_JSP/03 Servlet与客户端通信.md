@@ -17,25 +17,37 @@
   ```java
   可以通过ServletConfig对象的getServletConfig( )方法获取，
   或者GenericServlet的getServletConfig( )方法获取
+    
+ServletContext context = this.getServletContext();
+  或
+  ServletContext context = this.getServletConfig().getServletContext();
   ```
-
+  
 - 定义的方法
   
   ```java
   String getInitParameter(String name);//返回名字为name的初始化参数
   Enumerartion getInitParameterNames( );//返回所有初始化参数的名字枚举集合
-  String getRealPath(String path);//返回真实路径    
+  String getRealPath(String path);//返回真实路径   
+  
+  setAttribute("data",data);
+  getAttribute("data");
   ```
   
+- 获取ServletContext的数据
+  
+  ````
+  String data = (String)application.getAttribute("data");
+  ````
   
 
 #### 4、RequestDispatcher(请求转发)
 
 - 概述
   
-  
+  Servlet收到浏览器的请求后产生要返回的数据，但Servlet不适合展示数据，可以将数据转给jsp来展示给浏览器。但是Servlet的产生的数据没有带给jsp，可以通过ServletContext存储（这种方法有线程安全问题）
 
-- 获取方式
+- 获取调度器并指定转发对象路径
   
   ```java
   //三种方式获取
@@ -44,7 +56,7 @@
   ServeltContext.getNamedDispather(String path);
   ```
 
-- 使用
+- 调用调度器的forward方法实现转发
   
   ```java
   void forward(ServletRequest req,ServletResponse res);
