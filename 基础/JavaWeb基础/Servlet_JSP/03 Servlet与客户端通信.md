@@ -17,10 +17,11 @@
   ```java
   可以通过ServletConfig对象的getServletConfig( )方法获取，
   或者GenericServlet的getServletConfig( )方法获取
-    
-ServletContext context = this.getServletContext();
+  ServletContext context = this.getServletContext();
   或
   ServletContext context = this.getServletConfig().getServletContext();
+  
+  ServletContext context = request.getSession().getServletContext();
   ```
   
 - 定义的方法
@@ -33,7 +34,7 @@ ServletContext context = this.getServletContext();
   setAttribute("data",data);
   getAttribute("data");
   ```
-  
+
 - 获取ServletContext的数据
   
   ````
