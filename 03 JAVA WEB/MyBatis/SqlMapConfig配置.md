@@ -5,7 +5,7 @@
 
 
 #### typeAliases（别名定义）
-```
+```java
 <!--类型别名定义
 定义后可在statement中使用
 -->
@@ -26,7 +26,7 @@
 MyBatis中通过typeHandlers完成Java类型和jdbc类型的转换。
 通常MyBatis提供的类型处理器就能满足日常使用，不需要自定义。
 #### mappers（映射器）
-```
+```java
 <!-- 加载映射文件 -->
 <mappers>
     <!-- 通过resource指定Mapper.xml来单个加载 -->

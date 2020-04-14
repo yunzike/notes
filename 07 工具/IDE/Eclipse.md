@@ -1,4 +1,6 @@
-下载安装：https://www.eclipse.org/downloads/
+#### 下载安装
+
+https://www.eclipse.org/downloads/
 
 不要直接下载安装器
 
@@ -6,7 +8,7 @@
 
 直接解压使用
 
-其他工具准备：
+#### 其他配置
 
 1、安装JDK并配置好环境变量
 
@@ -20,7 +22,7 @@ window-->Preferences-->Java-->Installed JREs-->Add-->Standard VM-->Next
 
 --->Directory选择JDK安装路径--->Finish--->Apply and Close
 
-JavaSE开发测试：
+#### JavaSE项目创建
 
 新建Java Project：JavaSEDemo
 
@@ -34,7 +36,7 @@ window-->Preferences-->Server-->Runtime Environments
 
 Add--->选择自己安装的版本--->Next--->Browse选择安装路径--->Finish--->Apply and Close
 
-JavaEE开发测试：
+#### JavaEE项目创建
 
 创建Dynamic Web Project项目：JavaEEDemo
 
@@ -52,7 +54,7 @@ Next一两次后Finish
 
 运行测试
 
-其他配置：
+#### 其他设置
 
 1、设置字体大小（四号）：
 
@@ -96,25 +98,7 @@ new新建
 
 pri提示为private (带空格)、pub提示为public (带空格)
 
-3、断点调试
 
-代码最左边双击加断点
-
-然后Debug模式运行
-
-F5（step into）：跳入方法
-
-F6（step over）：执行下一句
-
-F7（step return）: 跳出方法
-
-F8 （Resume）: 跳到下一个断点
-
-Drop to Frame：跳回当前方法的第一行
-
-查看变量的值：选中右击点watch
-
-注意：断点调试完成后，要在breakpoints视图中清除所有断点，一定要结束运行断点的jvm。
 
 4、修改工作空间字符集为UTF-8
 
@@ -154,7 +138,7 @@ Window -> Preference -> General -> Appearance
 
 ​    Window窗口->Perspective透视图 ->Reset Perspective复位透视图
 
-7、常用快捷键
+#### 常用快捷键
 
 ctrl+1          快速修复
 
@@ -206,7 +190,27 @@ Java编辑器 Ctrl+B 重新编译Java程序代码
 
 Java编辑器 Ctrl+F11 运行上次程序
 
-8、导入JAR包
+#### 断点调试
+
+代码最左边双击加断点
+
+然后Debug模式运行
+
+F5（step into）：跳入方法
+
+F6（step over）：执行下一句
+
+F7（step return）: 跳出方法
+
+F8 （Resume）: 跳到下一个断点
+
+Drop to Frame：跳回当前方法的第一行
+
+查看变量的值：选中右击点watch
+
+注意：断点调试完成后，要在breakpoints视图中清除所有断点，一定要结束运行断点的jvm。
+
+#### 导入JAR包
 
 添加第三方jar包：
 
@@ -215,3 +219,29 @@ Java编辑器 Ctrl+F11 运行上次程序
 右击“项目”→选择Properties，选择Java Build Path，Add External JARs，就可以逐个（也可以选择多个jar，但是限制在同一个文件夹中）添加第三方引用jar包。
 
 右击“项目”→选择Properties，选择Java Build Path，选择"Add Library"，弹出如下图所示对话框，选择"User Library"，然后选择→Next
+
+#### 安装 SPRING TOOL SUITE
+
+![image-20200406230335904](../../images/image-20200406230335904.png)
+
+SPRING TOOL SUITE 是一个 Eclipse 插件，利用该插件可以更方便的在 Eclipse 平台上开发基于 Spring 的应用。
+
+•安装方法说明（springsource-tool-suite-3.4.0.RELEASE-e4.3.1-updatesite.zip）：
+
+–**Help** --> **Install New Software...**
+
+–Click Add...
+
+–In dialog Add Site dialog, click **Archive...** 
+
+–Navigate to **springsource-tool-suite-3.4.0.RELEASE-e4.3.1-updatesite.zip** and click  **Open** 
+
+–Clicking **OK** in the Add Site dialog will bring you back to the dialog 'Install' 
+
+–Select the **xxx/Spring IDE** that has appeared 
+
+–Click **Next**  and then **Finish**
+
+–**Approve the license** 
+
+–Restart eclipse when that is asked

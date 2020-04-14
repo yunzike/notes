@@ -67,6 +67,12 @@ View->Toolbar(菜单按钮)和Tool Window Bars(窗口左右菜单项)
 Configure->Settings->Appearance&Behaivor->System settings 
 去掉Reopen last project on startup的勾
 
+#### 关闭自动保存和标志修改文件为星号
+
+![image-20200413215215892](../../images/image-20200413215215892.png)
+
+![image-20200413215332443](../../images/image-20200413215332443.png)
+
 #### IDEA中的.iml和.idea文件
 .iml文件 
 iml文件是IntelliJ   IDEA自动创建的模块文件，用于Java应用开发，存储一些模块开发相关的信息，比如一个Java组件，插件组件，Maven组件等等，还可能存储一些模块路径信息，依赖信息以及别的一些设置。  
@@ -267,30 +273,23 @@ smart step into(shift+F7)：当前行有多个方法时，自主选择进入的�
 - 常用插件： 
 
   activate-power-mode: 代码编辑特效 
-
-  Rainbow Brackets: 彩虹括号 
-
+Rainbow Brackets: 彩虹括号 
   CodeGlance: 代码导航地图 
-
-  Free Mybatis plugin: mapper和xml跳转 
-
+Free Mybatis plugin: mapper和xml跳转 
   Key promoter：快捷键提示，可以关闭提示，没有快捷键的可以快速设置快捷键 
-
-  ECTranslation: 翻译 
-
+ECTranslation: 翻译 
   Alibaba Java Coding Guidelines: 阿里代码规约 
-
-  Nyan progress bar: 进度条美化
-
+Nyan progress bar: 进度条美化
   CamelCase: 驼峰转化 
-
-  JRebel for IntelliJ:热部署 收费
-
+JRebel for IntelliJ:热部署 收费
   Material Theme UI:主题插件，修改图标
-  
-  RestfulToolkit:快速定位接口方法
-  
+RestfulToolkit:快速定位接口方法
   Mybatis Log Plugin:输出可执行的SQL语句
+RestfulToolkit：快速定位接口
+  Lombok：省掉手动的get/set方法
+Grep Console：日志着色控制台显示
+  Easy Code：数据库生成JavaBean
+  .ignore：生成.gitignore文件
 
 ## 六、模板
 
