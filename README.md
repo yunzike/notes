@@ -5,7 +5,7 @@
 
 
 Java基础：
-		基础语法、面向对象、集合、IO、并发基础、网络编程、JDBC
+		基础语法、面向对象、集合、IO、并发基础、网络编程、JDBC、异常
 
 基础进阶：
 		反射、JVM、JUC、JMM、设计模式、数据结构、UML
@@ -37,4 +37,4 @@ Java Web:
 		分布式协调：zookeeper		
 
 架构：
-		单体架构、SOA架构、微服务架构、ServiceMesh网格架构、DDD领域驱动设计	
+		单体架构、SOA架构、微服务架构、ServiceMesh网格架构、DDD领域驱动设计	 
