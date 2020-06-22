@@ -1,36 +1,34 @@
-## 一、IDEA的安装
+## 一、IDEA的安装与基本配置
 
-#### 1、基础配置
+#### 1、JDK环境配置
 
-- JDK环境配置
+Configure->Structure for new Project->Project Settings->Project->Project SDK 
+选择JDK本地安装目录并设置
 
-  Configure->Structure for new Project->Project Settings->Project->Project SDK 
-  选择JDK本地安装目录并设置
+#### 2、配置Tomcat环境
 
-- 配置Tomcat环境
+菜单按钮中方框：Edit Configuraion->添加->Tomcat Server ->local 
+1.设置服务器name:server01 
+2.Server->Application server->Configure    选择本地Tomcat路径 
+3.Open Browser->After launch   设置运行后启动浏览器 
+4.Open Browser->url 设置部署入口的ur 
+5.On 'update' action:修改为Redeploy,On frame deactivation:修改为Update classes and resources  
+6.Http port  配置端口
+7.Deployment 设置服务器运行的项目
 
-  菜单按钮中方框：Edit Configuraion->添加->Tomcat Server ->local 
-  1.设置服务器name:server01 
-  2.Server->Application server->Configure    选择本地Tomcat路径 
-  3.Open Browser->After launch   设置运行后启动浏览器 
-  4.Open Browser->url 设置部署入口的ur 
-  5.On 'update' action:修改为Redeploy,On frame deactivation:修改为Update classes and resources  
-  6.Http port  配置端口
-  7.Deployment 设置服务器运行的项目
+#### 3、配置maven
 
-- 配置maven
+1.下载Maven解压并修改仓库配置 
+2.设置直接搜索Maven 
+3.修改Maven home directory为本地Maven路径 
+4.修改User settings file为settings.xml并勾选后面的override 
+5.Local repository为配置的本地仓库并勾选后面的override 
 
-  1.下载Maven解压并修改仓库配置 
-  2.设置直接搜索Maven 
-  3.修改Maven home directory为本地Maven路径 
-  4.修改User settings file为settings.xml并勾选后面的override 
-  5.Local repository为配置的本地仓库并勾选后面的override 
+#### 4、git的使用
 
-- git的使用
+设置中配置本地安装的git
 
-  设置中配置本地安装的git
-
-  菜单栏VCS选择git
+菜单栏VCS选择git
 
 ## 二、项目
 
@@ -59,21 +57,21 @@
 
 ## 三、设置
 
-#### 编码界面设置
+#### 1、编码界面设置
 打开菜单按钮（默认关闭） 
 View->Toolbar(菜单按钮)和Tool Window Bars(窗口左右菜单项)
 
-#### 设置启动显示启动页而不是直接打开项目
+#### 2、设置启动显示启动页而不是直接打开项目
 Configure->Settings->Appearance&Behaivor->System settings 
 去掉Reopen last project on startup的勾
 
-#### 关闭自动保存和标志修改文件为星号
+#### 3、关闭自动保存和标志修改文件为星号
 
 ![image-20200413215215892](../../images/image-20200413215215892.png)
 
 ![image-20200413215332443](../../images/image-20200413215332443.png)
 
-#### IDEA中的.iml和.idea文件
+#### 4、IDEA中的.iml和.idea文件
 .iml文件 
 iml文件是IntelliJ   IDEA自动创建的模块文件，用于Java应用开发，存储一些模块开发相关的信息，比如一个Java组件，插件组件，Maven组件等等，还可能存储一些模块路径信息，依赖信息以及别的一些设置。  
 
@@ -84,7 +82,7 @@ idea对module配置信息之意，information of module
 这两个文件我们平常几乎不使用，在创建父子工程或者聚合工程时反而会对我们操作产生干扰，所以，一般情况下，我们都将其隐藏掉，步骤如下： 
 Editor——>File Types——>Ignore files and foloders中输入*.iml和.idea,以 ; 结尾
 
-#### 配置JVM参数
+#### 5、配置JVM参数
 Help->Editor Custom VM Options 
 -Xms128m 
 -Xmx750m 
@@ -94,7 +92,7 @@ Help->Editor Custom VM Options
 -Xmx2048m 
 -XX:ReservedCodeCacheSize=500m
 
-#### 添加第三方依赖
+#### 6、添加第三方依赖
 1.webINF目录下新建lib目录，并将依赖jar包复制进去 
 2.点击菜单按钮Project Structure 
 3.Project Settings->Libraries 
@@ -104,7 +102,7 @@ Dependencies->勾选刚才添加的lib仓库->Apply
 
 
 
-#### 其他设置
+#### 7、其他设置
 全局设置： 
 启动界面Configure->Settings 
 编码界面File->Other settings->Settings for new Projects 
@@ -152,7 +150,7 @@ Editor->General->勾上Show quick documentation on mouse move
 
 ## 四、快捷键
 
-#### 快捷键
+#### 1、基本快捷键
 
 IDEA不需要Ctrl+S保存，每做一步操作软件会自动保存（可设置成手动保存） 
 psvm：main函数 
@@ -172,24 +170,16 @@ ctrl+alt+t: 在选中代码块外面包上其他东西如if、trycatch等
 ctrl+shift+v：剪切板
 ctrl+shift+u：大小写
 
-后缀补全： 
-xxx.if：if(xxx) 
-xxx.null：判空 
-xxx.nn：判非空 
-xxx.var：变量声明 
-xxx.for：遍历 
-xxx.fori：索引遍历  
+#### 2、重构
 
-
-
-重构： 
 shift+F6： 更改类名或成员变量 
 ctrl+alt+m： 方法抽取 
 ctrl+r：替换本文件文本 
 ctrl+shift+r：全局替换文本 
 alt+j：选中某个文本后，再选中下一个相同文本，可以同时修改  
 
-选择与跳转： 
+#### 3、选择与跳转
+
 ctrl+w:选择代码 
 ctrl+shift+w:释放代码 
 ctrl+left/right: 移动到单词前面/后面 
@@ -206,13 +196,16 @@ ctrl+alt+左方向箭头：back跳到上一个查看位置（需要关闭显卡�
 ctrl+alt+右方向箭头：forward前往下一个查看位置（需要关闭显卡旋转屏幕快捷键） 
 shift+鼠标滚轮(项目结构视图中可用ctrl+left|right)：移动滚动条  
 
+#### 4、视图操作
+
 shift+esc：关闭当前视图 
 alt+home：显示导航栏
 alt+1: 显示项目结构 
 alt+4: 显示控制台 
 ctrl+E: 显示最近文件  
 
-查找： 
+#### 5、查找 
+
 ctrl+F:当前文件文本搜索 
 ctrl+shift+F:全局文本搜索  
 
@@ -228,12 +221,18 @@ Ctrl+Alt+B： 查看接口或者抽象方法的实现（必须先将光标定位
 ctrl+h： 当前类的继承关系（只有当前类的继承，不包含层级关系上的接口） 
 ctrl+alt+U: 查看UML图（包含该类或接口以上层级的类和接口，其中蓝色实线箭头表示继承类，绿色实线箭头表示继承接口，绿色虚线箭头是实现接口）   
 
-代码提交： 
+#### 6、代码提交
+
 ctrl+t：poll 
 ctrl+k：commit 
 ctrl+shift+k: push  
 
-#### Debug
+#### 7、列编辑
+
+alt + 鼠标左键拖动或者shift + 上下方向箭：光标选中连续行相同位置
+shift + alt + 鼠标左键单击选择：光标选中多个任意位置
+
+## 五、Debug
 
 竖排按钮： 
 ctrl+F5：重启Debug 
@@ -264,7 +263,7 @@ smart step into(shift+F7)：当前行有多个方法时，自主选择进入的�
 
 
 
-## 五、插件
+## 六、插件
 
 - 添加插件
 
@@ -281,7 +280,7 @@ ECTranslation: 翻译
   Alibaba Java Coding Guidelines: 阿里代码规约 
 Nyan progress bar: 进度条美化
   CamelCase: 驼峰转化，shift + alt + u
-JRebel for IntelliJ:热部署 收费
+JRebel for IntelliJ：热部署 收费
   Material Theme UI:主题插件，修改图标
 RestfulToolkit:快速定位接口方法
   Mybatis Log Plugin:输出可执行的SQL语句
@@ -292,10 +291,12 @@ Grep Console：日志着色控制台显示
   .ignore：生成.gitignore文件
   Git Commit Template：git commit 模板
   GsonFormat：一键根据json文本生成java类
+  Jclasslib Bytecode Viewer：查看类的字节码文件
+  Leetcode Editor：LeetCode插件
 
-## 六、模板
+## 七、自定义代码模板
 
-- 注释模板设置
+#### 1、注释模板
 
 - 类注释
 
@@ -316,6 +317,137 @@ Grep Console：日志着色控制台显示
   ```java
   //方法注释
   ```
+
+#### 2、Live Templates（代码模板）
+
+![image-20200613204144033](../../images/image-20200613204144033.png)
+
+或者在代码中使用快捷键 ctrl + j ，然后点击右下角的灯泡图标会出现Edit live templates settings，点击即可进入设置Live Templates。
+
+然后点击右上角的加号选择Template Group新建自己的代码模板分组（也可以直接在原有分组中加，但最好新建分组避免混乱原有设置）custom，选中自己新建的分组，再点击加号选择Live Template即可添加代码模板。
+
+![image-20200613205350974](../../images/image-20200613205350974.png)
+
+其中，Abbreviation（缩写）：即为代码模板缩写，触发生成代码模板内容的关键字。Description为模板描述。Template text模板代码内容，如下方的日志代码模板，其中可以使用$变量名$来定义变量，然后点击Edit Variables设置该变量对应的值，如所在类名、方法名、方法参数列表等。
+
+```java
+private static final Logger logger = LoggerFactory.getLogger($className$.class);
+```
+
+左下方如果存在警告：No applicable  contexts. 则需要点击define设置代码模板使用的上下文，即使用的代码类型范围，如Java。另外，还可以勾选Use static import if possible开启静态导入。
+
+常见的设置还有单元测试方法模板如下图：
+
+![image-20200615001903829](../../images/image-20200615001903829.png)
+
+#### 3、File Templates（文件模板）
+
+![image-20200614141724430](../../images/image-20200614141724430.png)
+
+或者在项目结构的任意目录上右键单击，选择new，然后选择Edit File Templates，即可进入设置。
+
+如上图中添加Mapper.xml的模板，文件名为Mapper，后缀为xml，填入模板内容，其中新建文件后光标符所在位置为：#[[$namespace$]]#，#[[$END$]]#为最后停留的光标位置。另外需要勾上Enable Live Templates。
+
+使用时直接在目录或包上右键单击，选择new，再选择文件模板的名称即可新建该文件。
+
+## 八、后缀补全（Postfix Complation）
+
+#### 1、变量创建
+
+| 代码格式    | 说明                                                         |
+| ----------- | ------------------------------------------------------------ |
+| xxx.var     | 创建局部变量，如：new Person.var再回车相当于输入Person person = new Person(); |
+| xxx.filed   | 创建全局变量                                                 |
+| 类名.new    | 相当于new 类名()                                             |
+| xxx.cast    | 类型强转，如：new Object().cast 再回车，填入要强转的类型Person，然后回车输入.var 再回车得到Person person = (Person) new Object(); |
+| xxx.castvar | 类型强转+创建局部变量，如：new Object().castvar再回车输入要强转的类型Person，相当于输入Person person = (Person) new Object(); |
+
+#### 2、类型判断
+
+| 代码格式               | 说明       |
+| ---------------------- | ---------- |
+| xxx.null               | 判空       |
+| xxx.notnull 或 xxx.nn  | 判非空     |
+| 布尔类型或表达式.if    | if 判断    |
+| 布尔类型或表达式.while | while 判断 |
+| xxx.not                | 取反       |
+
+#### 3、输出与返回
+
+| 代码格式   | 说明    |
+| ---------- | ------- |
+| xxx.sout   | 输出xxx |
+| xxx.return | 返回xxx |
+
+#### 4、循环
+
+| 代码格式 | 说明             |
+| -------- | ---------------- |
+| xxx.fori | 从小到大索引遍历 |
+| xxx.forr | 从大到小索引遍历 |
+| xxx.for  | 增强for循环      |
+
+#### 5、异常捕获
+
+| 代码格式 | 说明                                    |
+| -------- | --------------------------------------- |
+| xxx.try  | 捕获异常，如调用xxx方法，但需要捕获异常 |
+
+#### 6、自定义Postfix Complation
+
+![image-20200614221851405](../../images/image-20200614221851405.png)
+
+如上图，关键字为list，即使用xxx.list回车创建xxx类型的List集合，其中$EXPR$为.list前的表达式，$END$为光标最后停留的位置。
+
+## 九、Maven依赖自动提示
+
+#### 1、自动提示
+
+windows下：ctrl+alt+空格
+mac下：ctrl+长按空格
+
+#### 2、快速搜索
+
+alt+insert，然后选择dependcy
+
+## 十、Inject Language
+
+#### 1、构造JSON字符串
+
+输入如下代码，将光标停留在字符串的双引号内
+
+```java
+String json = "";
+```
+
+然后按alt + 回车，选择Inject Language or reference。再选择json后回车，即可将该字符串标记成一个JSON字符串，再按alt + 回车可以添加注释，再按alt + 回车，选择Edit JSON Fragment则会打开JSOM编辑视图，可以再视图中直接书写原JSON格式的代码。注意：选择时可以直接输入字母快速选中要选的选项。
+
+![image-20200615004433330](../../images/image-20200615004433330.png)
+
+按alt + 回车，选择Uninject Language or reference，则可以将该字符串的JSON标记取消。
+
+#### 2、构造HTML 字符串
+
+构造HTML字符串的操作同上，只是将选择json的操作改成选择html。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
