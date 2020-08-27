@@ -27,8 +27,7 @@ Configure->Structure for new Project->Project Settings->Project->Project SDK
 #### 4、git的使用
 
 设置中配置本地安装的git
-
-菜单栏VCS选择git
+![image-20200724012202452](../../images/image-20200724012202452.png)
 
 ## 二、项目
 
@@ -125,13 +124,13 @@ Editor->General->Appearance->Show line numbers
 Editor->Code Style->Java->Blank Lines
 最上面三个改为1，格式化代码后多个空行合并成一个空行  
 
-代码提示（补全）：
+**代码提示（补全）：**
 Editor->General->Code Completion->Match case
 修改为All letters？ 
 显示方法参数：
 Editor->General->Code Completion->Parameter Info
 
-自动导包：
+**自动导包：**
 Editor->General->Auto Import 
 Java->Ask改为All并勾选Add unambig...和Optimize imports...
 
@@ -229,8 +228,16 @@ ctrl+shift+k: push
 
 #### 7、列编辑
 
+mac 下，
+光标选中连续行相同位置：opt + 鼠标左键拖动
+光标选中多个任意位置：shift + opt + 鼠标左键单击
+选中相同内容出现的多个位置：选择内容后，cmd + F 查询，然后ctrl + G 光标选择下一个位置 
+
 alt + 鼠标左键拖动或者shift + 上下方向箭：光标选中连续行相同位置
 shift + alt + 鼠标左键单击选择：光标选中多个任意位置
+
+选中相同内容出现的所有行：
+选择内容后，ctrl+F 查询，然后ctrl + shift + alt + J 光标选中所有查询结果
 
 ## 五、Debug
 
@@ -253,7 +260,7 @@ Run to Cursor (Alt+F9)：运行到光标处（不需要事先打断点）
 Evaluate Expression (Alt+F8)：计算表达式（可以先选中表达式）  
 
 运行完成：
-方式一：连续点击F9执行完最后一个断点 
+方式一：连续点击F9执行完最后一个断点
 方式二：禁用断点然后点击F9 
 变量值查看： 
 方式一：光标悬停+ctrl+F1 
@@ -278,21 +285,21 @@ Free Mybatis plugin: mapper和xml跳转
   Key promoter：快捷键提示，可以关闭提示，没有快捷键的可以快速设置快捷键 
 ECTranslation: 翻译 
   Alibaba Java Coding Guidelines: 阿里代码规约 
-Nyan progress bar: 进度条美化
-  CamelCase: 驼峰转化，shift + alt + u
-JRebel for IntelliJ：热部署 收费
-  Material Theme UI:主题插件，修改图标
-RestfulToolkit:快速定位接口方法
-  Mybatis Log Plugin:输出可执行的SQL语句
-RestfulToolkit：快速定位接口
-  Lombok：省掉手动的get/set方法
-Grep Console：日志着色控制台显示
-  Easy Code：数据库生成JavaBean
+CamelCase: 驼峰转化，shift + alt + u
+  JRebel for IntelliJ：热部署 收费
+Material Theme UI:主题插件，修改图标
+  RestfulToolkit:快速定位接口方法
+Mybatis Log Plugin:输出可执行的SQL语句
+  RestfulToolkit：快速定位接口
+Lombok：省掉手动的get/set方法
+  Grep Console：日志着色控制台显示
+Easy Code：数据库生成JavaBean
   .ignore：生成.gitignore文件
   Git Commit Template：git commit 模板
   GsonFormat：一键根据json文本生成java类
   Jclasslib Bytecode Viewer：查看类的字节码文件
   Leetcode Editor：LeetCode插件
+  Nyan progress bar: 进度条美化
 
 ## 七、自定义代码模板
 
@@ -429,6 +436,16 @@ String json = "";
 #### 2、构造HTML 字符串
 
 构造HTML字符串的操作同上，只是将选择json的操作改成选择html。
+
+
+
+## 十一、Git相关操作
+
+
+
+#### 1、分支管理
+
+https://www.cnblogs.com/java688/p/13373269.html
 
 
 

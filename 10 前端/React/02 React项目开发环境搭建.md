@@ -7,20 +7,29 @@ npm -v
 2、通过 npm 使用 React
 
 国内使用 npm 速度很慢，设置淘宝定制的 cnpm (gzip 压缩支持) 命令行工具代替默认的 npm。
+
+```
 $ npm install -g cnpm --registry=https://registry.npm.taobao.org
 $ npm config set registry https://registry.npm.taobao.org
+```
 
 全局安装create-react-app模块
+```
 $ cnpm install -g create-react-app（使用npm则为npm install -g create-react-app）
-
+```
 创建项目
+```
 $ create-react-app my-app
-
+```
 运行项目
 进入项目路径
+```
 $ cd my-app/
+```
 运行
+```
 $ npm start
+```
 自动在浏览器中运行http://localhost:3000/ ，显示默认React页面
 
 
@@ -36,7 +45,7 @@ $ npm start
    在执行命令之前，先进入node.js的安装目录，然后才可以进行安装react工程.
    npm install -g create-react-app 按回车
   执行结果：
-   
+
 4.然后进入你想创建工程的比如D盘，创建工程名，创建react-basic基础包
 
 进入d盘之后，创建文件夹

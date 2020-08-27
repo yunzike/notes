@@ -64,6 +64,10 @@ git push -u origin master //输入用户名和密码
 //git clone -b + 分支名 + 远程仓库clone URL,要想拷贝到指定目录，可以先进入目录再执行命令
 git clone -b master https://github.com/yunzike/yunzike.git
 ````
+#### 7、使用ssh免密连接
+
+
+
 ### 三、常用操作
 
 #### 修改分支名称
