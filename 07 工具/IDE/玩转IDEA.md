@@ -300,6 +300,8 @@ Easy Code：数据库生成JavaBean
   Jclasslib Bytecode Viewer：查看类的字节码文件
   Leetcode Editor：LeetCode插件
   Nyan progress bar: 进度条美化
+  GenerateAllSetter：Alt+Enter 一键生成所有方法
+  Properties to YAML Converter：一键将Propereties配置文件转成YML文件
 
 ## 七、自定义代码模板
 

@@ -1,6 +1,6 @@
 ### 个人学习笔记
 
-用于个人平时的学习笔记 
+用于个人平时的学习笔记     https://cdn.jsdelivr.net/gh/yunzike/notes/images/
 
 Java基础：
 		基础语法、面向对象、集合、IO、并发基础、网络编程、JDBC、异常
