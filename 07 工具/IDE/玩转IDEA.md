@@ -3,31 +3,43 @@
 #### 1、JDK环境配置
 
 Configure->Structure for new Project->Project Settings->Project->Project SDK 
+
 选择JDK本地安装目录并设置
 
 #### 2、配置Tomcat环境
 
 菜单按钮中方框：Edit Configuraion->添加->Tomcat Server ->local 
+
 1.设置服务器name:server01 
+
 2.Server->Application server->Configure    选择本地Tomcat路径 
+
 3.Open Browser->After launch   设置运行后启动浏览器 
+
 4.Open Browser->url 设置部署入口的ur 
-5.On 'update' action:修改为Redeploy,On frame deactivation:修改为Update classes and resources  
+
+5.On 'update' action:修改为Redeploy,On frame deactivation:修改为Update classes and resources 
+
 6.Http port  配置端口
+
 7.Deployment 设置服务器运行的项目
 
 #### 3、配置maven
 
 1.下载Maven解压并修改仓库配置 
+
 2.设置直接搜索Maven 
+
 3.修改Maven home directory为本地Maven路径 
+
 4.修改User settings file为settings.xml并勾选后面的override 
+
 5.Local repository为配置的本地仓库并勾选后面的override 
 
 #### 4、git的使用
 
 设置中配置本地安装的git
-![image-20200724012202452](../../images/image-20200724012202452.png)
+![image-20200724012202452](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200724012202452.png)
 
 ## 二、项目
 
@@ -36,16 +48,25 @@ Configure->Structure for new Project->Project Settings->Project->Project SDK
 - 创建Java SE项目
 
   1.启动页点击Create new project 
+
   2.左侧选择Java 
+
   3.选择JDK，默认为配置的JDK环境 
+
   4.点击next再点击next，然后设置项目名，项目路径，完成
+
+  
 
 - 创建Java EE项目
 
   1.启动页点击Create new project 
+  
   2.左侧选择Java 
+  
   3.勾选Java EE->Web Application 
+  
   4.设置Serverlet版本：点击Java   EE，最下方选择Serverlet版本对应的Java EE版本，再点击Web Applic就能看到选择的Serverlet版本了 
+  
   5.点击next，指定项目名字和路径，完成  
 
 #### 2、导入项目
@@ -58,23 +79,27 @@ Configure->Structure for new Project->Project Settings->Project->Project SDK
 
 #### 1、编码界面设置
 打开菜单按钮（默认关闭） 
+
 View->Toolbar(菜单按钮)和Tool Window Bars(窗口左右菜单项)
 
 #### 2、设置启动显示启动页而不是直接打开项目
 Configure->Settings->Appearance&Behaivor->System settings 
+
 去掉Reopen last project on startup的勾
 
 #### 3、关闭自动保存和标志修改文件为星号
 
-![image-20200413215215892](../../images/image-20200413215215892.png)
+![image-20200413215215892](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200413215215892.png)
 
-![image-20200413215332443](../../images/image-20200413215332443.png)
+![image-20200413215332443](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200413215332443.png)
 
 #### 4、IDEA中的.iml和.idea文件
 .iml文件 
+
 iml文件是IntelliJ   IDEA自动创建的模块文件，用于Java应用开发，存储一些模块开发相关的信息，比如一个Java组件，插件组件，Maven组件等等，还可能存储一些模块路径信息，依赖信息以及别的一些设置。  
 
 .idea文件夹 
+
 idea对module配置信息之意，information of module
 
 **隐藏** 
@@ -93,9 +118,12 @@ Help->Editor Custom VM Options
 
 #### 6、添加第三方依赖
 1.webINF目录下新建lib目录，并将依赖jar包复制进去 
+
 2.点击菜单按钮Project Structure 
+
 3.Project Settings->Libraries 
 点击加号，Java->选择刚才创建的lib文件夹->OK->OK->Apply 
+
 4.Project Settings->Modules->
 Dependencies->勾选刚才添加的lib仓库->Apply  
 
@@ -141,11 +169,11 @@ Editor->General->勾上Show quick documentation on mouse move
 
 去掉SQL中No data sources configured（没有配置数据源） 选项 和 SQL dialect detection（SQL方言检测）
 
-![image-20200103161742806](../../images/image-20200103161742806.png)
+![image-20200103161742806](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200103161742806.png)
 
 再去掉灰色背景色
 
-![image-20200103162333693](../../images/image-20200103162333693.png)
+![image-20200103162333693](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200103162333693.png)
 
 ## 四、快捷键
 
@@ -302,6 +330,7 @@ Easy Code：数据库生成JavaBean
   Nyan progress bar: 进度条美化
   GenerateAllSetter：Alt+Enter 一键生成所有方法
   Properties to YAML Converter：一键将Propereties配置文件转成YML文件
+  LeetCode Editor：LeetCode插件
 
 ## 七、自定义代码模板
 
@@ -329,13 +358,13 @@ Easy Code：数据库生成JavaBean
 
 #### 2、Live Templates（代码模板）
 
-![image-20200613204144033](../../images/image-20200613204144033.png)
+![image-20200613204144033](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200613204144033.png)
 
 或者在代码中使用快捷键 ctrl + j ，然后点击右下角的灯泡图标会出现Edit live templates settings，点击即可进入设置Live Templates。
 
 然后点击右上角的加号选择Template Group新建自己的代码模板分组（也可以直接在原有分组中加，但最好新建分组避免混乱原有设置）custom，选中自己新建的分组，再点击加号选择Live Template即可添加代码模板。
 
-![image-20200613205350974](../../images/image-20200613205350974.png)
+![image-20200613205350974](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200613205350974.png)
 
 其中，Abbreviation（缩写）：即为代码模板缩写，触发生成代码模板内容的关键字。Description为模板描述。Template text模板代码内容，如下方的日志代码模板，其中可以使用$变量名$来定义变量，然后点击Edit Variables设置该变量对应的值，如所在类名、方法名、方法参数列表等。
 
@@ -347,11 +376,11 @@ private static final Logger logger = LoggerFactory.getLogger($className$.class);
 
 常见的设置还有单元测试方法模板如下图：
 
-![image-20200615001903829](../../images/image-20200615001903829.png)
+![image-20200615001903829](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200615001903829.png)
 
 #### 3、File Templates（文件模板）
 
-![image-20200614141724430](../../images/image-20200614141724430.png)
+![image-20200614141724430](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200614141724430.png)
 
 或者在项目结构的任意目录上右键单击，选择new，然后选择Edit File Templates，即可进入设置。
 
@@ -404,7 +433,7 @@ private static final Logger logger = LoggerFactory.getLogger($className$.class);
 
 #### 6、自定义Postfix Complation
 
-![image-20200614221851405](../../images/image-20200614221851405.png)
+![image-20200614221851405](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200614221851405.png)
 
 如上图，关键字为list，即使用xxx.list回车创建xxx类型的List集合，其中$EXPR$为.list前的表达式，$END$为光标最后停留的位置。
 
@@ -431,7 +460,7 @@ String json = "";
 
 然后按alt + 回车，选择Inject Language or reference。再选择json后回车，即可将该字符串标记成一个JSON字符串，再按alt + 回车可以添加注释，再按alt + 回车，选择Edit JSON Fragment则会打开JSOM编辑视图，可以再视图中直接书写原JSON格式的代码。注意：选择时可以直接输入字母快速选中要选的选项。
 
-![image-20200615004433330](../../images/image-20200615004433330.png)
+![image-20200615004433330](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200615004433330.png)
 
 按alt + 回车，选择Uninject Language or reference，则可以将该字符串的JSON标记取消。
 

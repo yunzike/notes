@@ -1,11 +1,13 @@
 ## 一、概述
 
-虚拟化容器技术。Docker基于镜像，可以秒级启动各种容器。每一种容器都是一个完整的运行环境，容器之间互相隔离。
+> 虚拟化容器技术。Docker基于镜像，可以秒级启动各种容器。每一种容器都是一个完整的运行环境，容器之间互相隔离。
 
 #### 1、相关链接
 
 docker官网：http://www.docker.com
+
 docker中文网站：https://www.docker-cn.com/
+
 Docker Hub官网: https://hub.docker.com/
 
 #### 2、Docker的基本组成
@@ -286,14 +288,3 @@ docker restart
 # 容器自动启动
 sudo docker update redis --restart=always
 ```
-
-
-
-
-
-
-
-
-
-
-
