@@ -54,7 +54,7 @@ https://jrebel.qekang.com/3fc1c149-026f-4704-80c4-2b75a14d7b1a
 
   可以将 Jrebel 设置成离线模式：
 
-  <img src="../../images/image-20200912104817614.png" alt="image-20200912104817614" style="zoom:50%;" />
+  <img src="../../images/image-20200926002242448.png" alt="image-20200926002242448" style="zoom:50%;" />
 
 - Jrebel 热加载不生效
 

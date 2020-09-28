@@ -199,7 +199,7 @@ ctrl+shift+u：大小写
 
 #### 2、重构
 
-shift+F6： 更改类名或成员变量 
+`shift` + `F6`： 更改类名或成员变量 
 ctrl+alt+m： 方法抽取 
 ctrl+r：替换本文件文本 
 ctrl+shift+r：全局替换文本 
