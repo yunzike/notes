@@ -123,11 +123,11 @@ $ docker run -p 3306:3306 --name mysql \
 -v /mydata/mysql/log:/var/log/mysql \
 -v /mydata/mysql/data:/var/lib/mysql \
 -v /mydata/mysql/conf:/etc/mysql \
--e MYSQL_ROOT_PASSWORD=root \
+-e MYSQL_ROOT_PASSWORD=yunzike121 \
 -d mysql:5.7
 ```
 
-![image-20200529182017203](../images/image-20200529182017203.png)
+![image-20200529182017203](../../images/image-20200529182017203.png)
 参数说明：
 	-p 3306:3306	：将容器的3306端口映射到主机的3306端口
 	--name mysql	：为当前启动的容器起名为mysql
@@ -175,7 +175,14 @@ skip-name-resolve：跳过域名解析
 
 #### 4、通过容器的mysql命令行工具连接mysql
 
+```bash
+# 进入mysql
+$ docker exec -it mysql /bin/bash
 
+# 登录
+```
+
+![image-20201102212821058](../../images/image-20201102212821058.png)
 
 #### 5、设置root远程访问
 

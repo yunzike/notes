@@ -316,13 +316,12 @@ ECTranslation: 翻译
 CamelCase: 驼峰转化，shift + alt + u
   JRebel for IntelliJ：热部署 收费
 Material Theme UI:主题插件，修改图标
-  RestfulToolkit:快速定位接口方法
+  RestfulToolkit：快速定位接口方法
 Mybatis Log Plugin:输出可执行的SQL语句
-  RestfulToolkit：快速定位接口
-Lombok：省掉手动的get/set方法
-  Grep Console：日志着色控制台显示
-Easy Code：数据库生成JavaBean
-  .ignore：生成.gitignore文件
+  Lombok：省掉手动的get/set方法
+Grep Console：日志着色控制台显示
+  Easy Code：数据库生成JavaBean
+.ignore：生成.gitignore文件
   Git Commit Template：git commit 模板
   GsonFormat：一键根据json文本生成java类
   Jclasslib Bytecode Viewer：查看类的字节码文件
