@@ -1,4 +1,4 @@
-## 一、概述
+## 1、概述
 
 - J2EE三层结构 
   1、web层（视图层）：struts2框架、spring MVC 
@@ -19,7 +19,7 @@ Hibernate是一个开源的对象关系映射（ORM）框架，应用在J2EE三�
   （2）不需要直接操作数据库表，而直接操作表对应的实体类对象 
   ![](../images/006tKfTcgy1g12b1g50q3j31y20ty7wh.jpg)
 
-## 二、实现
+## 2、实现
 
 1、导入jar包
 （1）hibernate中required目录和jpa目录下jar包 
@@ -28,7 +28,7 @@ Hibernate是一个开源的对象关系映射（ORM）框架，应用在J2EE三�
 
 
 
-## 对象关系映射
+## 3、对象关系映射
 
 ORM（Object Relational Mapping）：对象关系映射
 让实体类（javabean）和数据库表进行一一对应关系。
