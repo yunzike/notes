@@ -6,11 +6,15 @@
 
 - 方式一：Controller 请求中打开，会直接生成 http 请求文件
 
-  ![image-20210616145916896](../../images/image-20210616145916896.png)
+  ![image-20210616145916896](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20210616145916896.png)
 
-- 方式二：手动新建 .http 文件
+- 方式二：菜单栏 Tools -> HTTP Client
 
-  ![image-20210616152738890](../../images/image-20210616152738890.png)
+  其中：Convert cURL to HTTP Request 还可以将 curl 方式的请求转换为 IDEA HTTP 工具的请求。
+  
+- 方式三：手动新建 .http 文件
+
+  ![image-20210616152738890](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20210616152738890.png)
 
 ## 3、 请求命令编写
 
@@ -25,11 +29,11 @@ header部分，key=value格式，每个一行
 
 - 参考案例
 
-  ![image-20210616151133570](../../images/image-20210616151133570.png)
+  ![image-20210616151133570](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20210616151133570.png)
 
 - 自动生成
 
-  ![image-20210616151210719](../../images/image-20210616151210719.png)
+  ![image-20210616151210719](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20210616151210719.png)
 
 ### 3.2 Get 请求
 
@@ -109,7 +113,7 @@ id=999&value=content
   --WebAppBoundary--
   ```
 
-  这个请求可以想像成页面中的一个表单，表单有 4 个元素：2 个 File 元素，用来选择需要上传的 2 个文件，2 个输入框，分别用来输入 userName 和 age。请求中需要用--WebAppBoundary 来隔离每个元素，如果有多个元素，都需要用--WebAppBoundary 隔离开来。
+  这个请求可以想像成页面中的一个表单，表单有 4 个元素：2 个 File 元素，用来选择需要上传的 2 个文件，2 个输入框，分别用来输入 accountName 和 password。请求中需要用--WebAppBoundary 来隔离每个元素，如果有多个元素，都需要用--WebAppBoundary 隔离开来。
 
 ### 3.5  文件下载
 
@@ -119,9 +123,9 @@ id=999&value=content
 
 - 添加配置文件
 
-  ![image-20210616151826266](../../images/image-20210616151826266.png)
+  ![image-20210616151826266](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20210616151826266.png)
 
-  ![image-20210616152427414](../../images/image-20210616152427414.png)
+  ![image-20210616152427414](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20210616152427414.png)
 
 - 配置文件格式
 
@@ -140,4 +144,5 @@ id=999&value=content
 
 - 使用
 
-  ![image-20210616152208952](../../images/image-20210616152208952.png)
+  ![image-20210616152208952](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20210616152208952.png)
+
