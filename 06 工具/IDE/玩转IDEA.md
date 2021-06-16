@@ -41,6 +41,14 @@ Configure->Structure for new Project->Project Settings->Project->Project SDK
 设置中配置本地安装的git
 ![image-20200724012202452](https://cdn.jsdelivr.net/gh/yunzike/notes/images/image-20200724012202452.png)
 
+
+
+#### 5、SVN 的使用
+
+![image-20201218112140716](../../images/image-20201218112140716.png)
+
+
+
 ## 二、项目
 
 #### 1、创建项目
@@ -329,7 +337,6 @@ Grep Console：日志着色控制台显示
   Nyan progress bar: 进度条美化
   GenerateAllSetter：Alt+Enter 一键生成所有方法
   Properties to YAML Converter：一键将Propereties配置文件转成YML文件
-  LeetCode Editor：LeetCode插件
 
 ## 七、自定义代码模板
 
@@ -343,7 +350,7 @@ Grep Console：日志着色控制台显示
   /**
    * 
    * @Description ${NAME} <br>
-   * @author xiongxiaoqi <br>
+   * @author xiongxq <br>
    * @date ${DATE} ${TIME} <br>
    * version: 1.0 <br>
    */

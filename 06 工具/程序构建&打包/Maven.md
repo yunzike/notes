@@ -35,33 +35,33 @@ localRepository中路径为仓库路径
 
 #### 5、使用阿里云下载镜像
 
-```bash
-<mirror>
-	<id>nexus-aliyun</id>    
-	<mirrorOf>central</mirrorOf>
-	<name>Nexus aliyun</name>  
-	<url>http://maven.aliyun.com/nexus/content/groups/public</url>    
-</mirror>
+```xml
+<mirrors>
+    <mirror>
+        <id>nexus-aliyun</id>
+        <mirrorOf>central</mirrorOf>
+        <name>Nexus aliyun</name>
+        <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </mirror>
+</mirrors>
 ```
 
 #### 6、配置jdk1.8编译项目
 
-```bash
+```xml
 <profiles>
-	<profile>
-		<id>jdk-1.8</id>
-		<activation>
-			<activeByDefault>true</activeByDefault>
-			<jdk>1.8</jdk>
-		</activation>
-		<properties>
-			<maven.compiler.source>1.8</maven.compiler.source>
-			<maven.compiler.target>1.8</maven.compiler.target>
-			<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-			# 下面这行可以不要
-			<encoding>UTF-8</encoding>
-		</properties>
-	</profile>
+    <profile>
+        <id>jdk-1.8</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+            <jdk>1.8</jdk>
+        </activation>
+        <properties>
+            <maven.compiler.source>1.8</maven.compiler.source>
+            <maven.compiler.target>1.8</maven.compiler.target>
+            <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        </properties>
+    </profile>
 </profiles>
 ```
 

@@ -25,6 +25,8 @@ Nginx是高性能的HTTP和反向代理的服务器，占用内存少，处理�
 
 ## 二、Nginx 的安装
 
+### 普通方式：
+
 #### 1、安装编译工具及库文件
 
 ```bash
@@ -43,7 +45,7 @@ Nginx是高性能的HTTP和反向代理的服务器，占用内存少，处理�
 ②解压安装包
 
 ```bash
-[root@heibaise src]# tar zxvf pcre-8.35.tar.gz
+[root@heibaise src]# tar -zxvf pcre-8.35.tar.gz
 ```
 
 ③编译安装
@@ -69,7 +71,7 @@ Nginx是高性能的HTTP和反向代理的服务器，占用内存少，处理�
 ②解压安装包
 
 ```bash
-[root@heibaise src]# tar zxvf nginx-1.12.2.tar.gz
+[root@heibaise src]# tar -zxvf nginx-1.12.2.tar.gz
 ```
 
 ③编译安装
@@ -79,6 +81,155 @@ Nginx是高性能的HTTP和反向代理的服务器，占用内存少，处理�
 [root@heibaise nginx-1.6.2]# ./configure
 [root@heibaise nginx-1.6.2]# make && make install
 ```
+
+### 使用Docker 安装
+
+#### 1、下载镜像
+
+```bash
+$ docker pull nginx
+```
+
+#### 2、配置
+
+##### 建目录用于存放nginx配置文件、证书文件
+
+```bash
+mkdir /nginx/conf.d -p
+touch /nginx/conf.d/nginx.conf
+mkdir /nginx/cert -p
+```
+
+##### 编辑 nginx.conf
+
+```bash
+vim /opt/docker/nginx/conf.d/nginx.conf
+```
+
+- 不需要 SSL 的情况
+
+  将访问`example.com`、`www.example.com` 的请求会被转发到服务器的`8090`端口
+
+  ```yml
+  server {
+    listen 80;  # 监听80端口
+    listen [::]:80;
+    server_name yunzike.com; # 自己的域名
+    client_max_body_size 1024m;  # 上传文件限制
+    location / {
+      proxy_set_header HOST $host;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  
+      proxy_pass http://172.17.0.9:8090;  # 需要代理的地址:端口
+    }
+  }
+  ```
+
+- 需要 SSL 的情况
+
+  ```yml
+  # 非强制重定向https
+  server {
+      listen 80; #侦听80端口，如果强制所有的访问都必须是HTTPs的，这行需要注销掉
+      listen 443 ssl; #侦听443端口，用于SSL
+      server_name example.cn;  # 自己的域名
+      # 注意文件位置，是从/etc/nginx/下开始算起的
+      ssl_certificate 1_example_bundle.crt;
+      ssl_certificate_key 2_example.key;
+      ssl_session_timeout 5m;
+      ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+      ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+      ssl_prefer_server_ciphers on;
+  
+      client_max_body_size 1024m;
+  
+      location / {
+          proxy_set_header HOST $host;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  	    # 这里写的是我的腾讯云内网地址,不知道为啥,不能用127.0.0.1...
+          proxy_pass http://xxx.xx.xx.xx:8090;
+      }
+  }
+  ```
+
+  ```yml
+  # 强制重定向
+  server {
+      listen 443 ssl;
+      server_name yunzike.com;  # 自己的域名
+      # 注意文件位置，是从/etc/nginx/下开始算起的
+      ssl_certificate /nginx/cert/1_yunzike.com_bundle.crt; #.crt 文件路径
+      ssl_certificate_key /nginx/cert/2_yunzike.com.key;	#.key 文件路径
+      ssl_session_timeout 5m;
+      ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+      ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+      ssl_prefer_server_ciphers on;
+  
+      client_max_body_size 1024m; # 设置上传文件大小限制
+  
+      location / {
+          proxy_set_header HOST $host;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          # 这里写的是我的腾讯云内网地址,不知道为啥,不能用127.0.0.1...
+          proxy_pass http://127.0.0.1:8090;
+      }
+  }
+  server {
+       listen 80; # 监听80端口
+       server_name yunzike.com;  # 绑定证书的域名
+       #把http的域名请求转成https
+       return 301 https://$host$request_uri; 
+  }
+  ```
+
+#### 3、启动 Nginx
+
+```bash
+docker run -itd --name nginx -p 80:80 -p 443:443 -v /nginx/conf.d/nginx.conf:/etc/nginx/conf.d/nginx.conf -v /nginx/cert:/etc/nginx -m 100m nginx
+
+```
+
+**注：参数说明**
+
+```
+-itd    后台运行
+-p      指定端口80和443
+-v      将本地的文件映射到docker中
+        配置文件 /nginx/conf.d/nginx.conf -> /etc/nginx/conf.d/nginx.conf
+        证书文件 /nginx/cert -> /etc/nginx
+-m      限制使用内存大小
+--name  指定名字为nginx
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 三、常用命令
 

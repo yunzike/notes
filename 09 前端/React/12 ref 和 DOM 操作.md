@@ -18,7 +18,7 @@ class AutoFocusInput extends Component {
 }
 ````
 
-**注意：**  
-1、**在组件中使用ref时要求组件必须是class声明的**，而不能在函数式声明组件中使用ref，因为他们不存在实例。  
-2、ref遗留的问题：以前的ref属性获取到的是字符串，而DOM节点通过this.refs.textInput来获取。但是因为string类型的ref有一定的问题，在以后的react版本中将会被移除，建使用回调函数来替代。  
+**注意：** 
+1、**在组件中使用ref时要求组件必须是class声明的**，而不能在函数式声明组件中使用ref，因为他们不存在实例。 
+2、ref遗留的问题：以前的ref属性获取到的是字符串，而DOM节点通过this.refs.textInput来获取。但是因为string类型的ref有一定的问题，在以后的react版本中将会被移除，建使用回调函数来替代。 
 3、**能不用 ref 就不用**。特别是要避免用 ref 来做 React.js 本来就可以做到的页面自动更新的操作和事件监听。

@@ -1,16 +1,14 @@
-## 一、概述
+## 1、概述
 
 > 虚拟化容器技术。Docker基于镜像，可以秒级启动各种容器。每一种容器都是一个完整的运行环境，容器之间互相隔离。
 
-#### 1、相关链接
+### 1.1 相关链接
 
-docker官网：http://www.docker.com
+- docker官网：http://www.docker.com
+- docker中文网站：https://www.docker-cn.com/
+- Docker Hub官网: https://hub.docker.com/
 
-docker中文网站：https://www.docker-cn.com/
-
-Docker Hub官网: https://hub.docker.com/
-
-#### 2、Docker的基本组成
+### 1.2、Docker的基本组成
 
 - 镜像（image）
 
@@ -29,11 +27,11 @@ Docker Hub官网: https://hub.docker.com/
   最大的公开仓库是 Docker Hub(https://hub.docker.com/)，
   存放了数量庞大的镜像供用户下载。国内的公开仓库包括阿里云 、网易云 等
 
-## 二、Docker安装MySQL
+## 2、Docker安装
 
 > Docker安装文档：https://docs.docker.com/engine/install/centos/
 
-#### 1、卸载旧版本
+### 2.1 卸载旧版本
 
 ```bash
 $ sudo yum remove docker \
@@ -46,23 +44,21 @@ $ sudo yum remove docker \
                   docker-engine
 ```
 
-#### 2、安装docker依赖包和设置docker安装地址
+### 2.2 安装docker依赖包和设置docker安装地址
 
 ```bash
 $ sudo yum install -y yum-utils
 
-$ sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
+$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
-#### 3、安装docker
+### 2.3 安装docker
 
 ```bash
 $ sudo yum install docker-ce docker-ce-cli containerd.io
 ```
 
-#### 4、启动docker
+### 2.4 启动docker
 
 ```bash
 #启动docker
@@ -75,13 +71,13 @@ $ docker -v
 $ sudo docker images
 ```
 
-#### 5、设置docker开机自启
+### 2.5 设置docker开机自启
 
 ```bash
 $ sudo systemctl enable docker
 ```
 
-#### 6、配置docker阿里云镜像加速
+### 2.6 配置docker阿里云镜像加速
 
 登录阿里云官网打开控制台选择容器镜像服务，在镜像加速菜单中找到centos的操作命令并一一执行即可。
 
@@ -98,7 +94,7 @@ sudo systemctl restart docker
 
 
 
-## 三、使用Docker安装镜像
+## 3、使用Docker安装镜像
 
 > Docker官方镜像仓库：docker hub
 
@@ -161,9 +157,10 @@ character-set-server=utf8
 collation-server=utf8_unicode_ci
 skip-character-set-client-handshake
 skip-name-resolve
+skip-grant-tables
 ```
 
-注意：解决MysQL 连接漫的问题在配置文件中加入如下，并重启mysql
+注意：解决MysQL 连接慢的问题在配置文件中加入如下，并重启mysql
 [mysqld]
 skip-name-resolve
 解释：
@@ -192,9 +189,9 @@ $ docker exec -it mysql /bin/bash
 
 
 
-## 四、常用Docker命令
+## 4、常用Docker命令
 
-#### 1、帮助命令
+### 1、Docker 服务命令
 
 ```bash
 # 查看docker版本
@@ -203,9 +200,25 @@ docker version
 docker info
 
 docker --help
+
+# systemctl 方式
+# 守护进程重启
+systemctl daemon-reload
+# 重启docker服务
+systemctl restart docker
+# 关闭docker
+systemctl stop docker
+
+# service 方式
+# 重启docker服务
+service docker restart
+# 关闭docker
+service docker stop
 ```
 
-#### 2、镜像命令
+### 2、镜像命令
+
+#### 查看镜像
 
 ```bash
 # 查看镜像
@@ -223,28 +236,54 @@ SIZE：镜像大小
 -q :只显示镜像ID。
 --digests :显示镜像的摘要信息
 --no-trunc :显示完整的镜像信息
+```
 
+#### 搜索镜像
+
+```bash
 # 搜索镜像
 docker search [OPTIONS] 镜像名字
 --no-trunc : 显示完整的镜像描述
 -s : 列出收藏数不小于指定值的镜像。
 --automated : 只列出 automated build类型的镜像；
-
-# 下载镜像
-docker pull 镜像名字[:TAG]
-
-# 删除镜像
-docker rmi 某个XXX镜像名字ID
-
-# 删除单个
-docker rmi -f 镜像ID
-删除多个
-docker rmi -f 镜像名1:TAG 镜像名2:TAG
-删除全部
-docker rmi -f $(docker images -qa)
 ```
 
-#### 3、容器命令
+#### 下载镜像
+
+```bash
+# 下载镜像
+docker pull 镜像名字[:TAG]
+```
+
+#### 删除镜像
+
+- 删除镜像
+
+  ```bash
+  docker rmi -f 镜像ID
+  ```
+
+- 删除多个
+
+  ```bash
+  # 删除多个
+  docker rmi -f 镜像名1:TAG 镜像名2:TAG
+  ```
+
+- 删除全部
+
+  ```bash
+  # 删除全部
+  docker rmi -f $(docker images -qa)
+  ```
+
+- 删除玄虚镜像
+
+  ```bash
+  docker image prune
+  ```
+
+### 3、容器命令
 
 ```bash
 # 新建并启动容器
@@ -265,7 +304,7 @@ docker run -it centos /bin/bash
 # 列出当前所有正在运行的容器
 $ docker ps [OPTIONS]
 
--a :列出当前所有正在运行的容器+历史上运行过的
+-a :列出当前所有正在运行的容器+历史上运行过的(已经停止的)
 -l :显示最近创建的容器。
 -n：显示最近n个创建的容器。
 -q :静默模式，只显示容器编号。
@@ -295,3 +334,10 @@ docker restart
 # 容器自动启动
 sudo docker update redis --restart=always
 ```
+
+### 4、查看日志
+
+```bash
+docker logs -f --tail 200 容器名
+```
+
