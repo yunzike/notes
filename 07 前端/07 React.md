@@ -137,7 +137,202 @@ className="App"，是引用到App.css的样式。注意，页面内容样式是�
 
 
 
-## 3、基础语法
+## 3、前端组件化
+
+#### 1、一个简单的点赞功能
+
+假设需要实现一个简单的点赞、取消点赞的功能。  
+**HTML：**
+
+````
+<body>
+    <div class='wrapper'>
+      <button class='like-btn'>
+        <span class='like-text'>点赞</span>
+        <span>👍</span>
+      </button>
+    </div>
+</body>
+````
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1g0tgtmp8frj306i02ut92.jpg)  
+通过以上HTML代码很简单就实现了如上图所示的页面效果，接下来进一步加入JavaScript的行为。  
+**JavaScript:**
+
+````
+const button = document.querySelector('.like-btn')//获取button元素节点
+const buttonText = button.querySelector('.like-text')//获取buttonText元素节点
+let isLiked = false//是否点赞，默认未点赞
+button.addEventListener('click', () => {//为button元素添加点击监听事件
+    isLiked = !isLiked
+    if (isLiked) {//点赞后改变buttonText元素的子元素为"取消"
+          buttonText.innerHTML = '取消'
+    } else {
+          buttonText.innerHTML = '点赞'
+    }
+}, false)
+
+````
+
+到此，简单的点赞和取消按钮的结构和功能都已经实现了。但是如果他人要用到同样的按钮，只能复制该功能代码使用。因此可以考虑怎样更好的实现结构复用。
+
+#### 2、结构复用
+
+首先先写一个点赞按钮的类,其中有一个render方法，用以返回一个点赞按钮的HTML代码的字符串。  
+**LikeButton类：**
+
+````
+class LikeButton {
+    render () {
+      return '
+        <button id='like-btn'>
+          <span class='like-text'>赞</span>
+          <span>👍</span>
+        </button>
+      '
+    }
+}
+````
+
+通过使用LikeButton类达到代码复用：
+
+````
+const wrapper = document.querySelector('.wrapper')//通过类选择器获取外层div元素
+
+const likeButton1 = new LikeButton()//通过LikeButton类创建点赞按钮
+wrapper.innerHTML = likeButton1.render()//将按钮添加到div中
+
+const likeButton2 = new LikeButton()
+wrapper.innerHTML += likeButton2.render()//在div中添加第二个按钮
+````
+
+这里非常暴力地使用了innerHTML，把两个按钮粗鲁地插入了 wrapper 当中。勉强了实现了结构的复用，接下来继续优化它。
+
+#### 实现简单组件化
+
+首先，以上结构复用，在wrapper中只是添加了两个点赞按钮的HTML的字符串。根本没能实现功能。  
+这就需要 DOM 结构，准确地来说：我们需要这个点赞功能的 HTML 字符串表示的 DOM 结构。假设我们现在有一个函数 createDOMFromString ，你往这个函数传入 HTML 字符串，但是它会把相应的 DOM 元素返回给你。这个问题就可以解决了。  
+**createDOMFromString方法：**
+
+````
+// String => Document
+const createDOMFromString = (domString) => {
+  const div = document.createElement('div')
+  div.innerHTML = domString
+  return div
+}
+````
+
+以上方法并不能真正实现功能，但可以确实完全可以通过DOM实现，先不用管具体怎么实现。
+有了createDOMFromString方法，就可以修改上文的LikeButton类了。
+**改写后的LikeButton类：**
+
+````
+class LikeButton {
+    render () {
+      this.el = createDOMFromString(
+        '<button class='like-button'>
+          <span class='like-text'>点赞</span>
+          <span>👍</span>
+        </button>'
+      )
+      this.el.addEventListener('click', () => console.log('click'), false)
+      return this.el
+    }
+}
+````
+
+因为现在render方法返回的是DOM元素，所以不能使用innerHTML暴力插入，必须使用DOM API 插入。
+
+````
+const wrapper = document.querySelector('.wrapper')
+
+const likeButton1 = new LikeButton()
+wrapper.appendChild(likeButton1.render())
+
+const likeButton2 = new LikeButton()
+wrapper.appendChild(likeButton2.render())
+````
+
+点击这两个按钮，都会在控制台打印 click则说明事件绑定成功了。稍微改动LikeButton实现文本改变，完成完整的功能：  
+
+````
+class LikeButton {
+    constructor () {
+      this.state = { 
+        isLiked: false 
+      }
+    }
+
+    changeLikeText () {
+      const likeText = this.el.querySelector('.like-text')
+      this.state.isLiked = !this.state.isLiked
+      likeText.innerHTML = this.state.isLiked ? '取消' : '点赞'
+    }
+
+    render () {
+      this.el = createDOMFromString(`
+        <button class='like-button'>
+          <span class='like-text'>点赞</span>
+          <span>👍</span>
+        </button>
+      `)
+      this.el.addEventListener('click', this.changeLikeText.bind(this), false)
+      return this.el
+    }
+}
+````
+
+上面改写后给 LikeButton 类添加了构造函数，这个构造函数会给每一个 LikeButton 的实例添加一个对象state，state 里面保存了每个按钮自己是否点赞的状态。还改写了原来的事件绑定函数：原来只打印 click，现在点击的按钮的时候会调用 changeLikeText 方法，这个方法会根据 this.state 的状态改变点赞按钮的文本。
+
+上面这个组件的可复用性已经很不错了，使用时只需要实例化一下然后插入到 DOM 里面去就好了。   
+
+但changeLikeText 函数包含了 DOM 操作，现在看起来比较简单，那是因为现在只有 isLiked 一个状态。由于数据状态改变会导致需要我们去更新页面的内容，所以如果组件依赖了很多状态，那么基本全部都是 DOM 操作。而且一个组件的显示形态由多个状态决定的情况非常常见，手动管理数据和 DOM 之间的关系会导致代码可维护性变差、容易出错。所以上面的例子这里还有优化的空间：如何尽量减少这种手动 DOM 操作？
+
+#### 优化DOM操作
+
+**一种解决方案：状态改变 -> 构建新的 DOM 元素更新页面**  
+直接在 render 方法里面使用 this.state的相关状态 来构建DOM元素，一旦状态发生改变，就重新调用 render 方法，构建一个新的 DOM 元素，页面也就更新了。而不是像上面例子中：render方法中没有使用this.state对象中的状态，状态改变->根据不同状态值手动修改DOM中与状态对应的部分的内容。
+
+````
+class LikeButton {
+    constructor () {
+      this.state = { 
+        isLiked: false 
+      }
+    }
+    setState (state) {
+      this.state = state
+      this.el = this.render()
+    }
+    changeLikeText () {
+      this.setState({
+        isLiked: !this.state.isLiked
+      })
+    }
+    render () {
+      this.el = createDOMFromString(`
+        <button class='like-btn'>
+          <span class='like-text'>${this.state.isLiked ? '取消' : '点赞'}</span>
+          <span>👍</span>
+        </button>
+      `)
+      this.el.addEventListener('click', this.changeLikeText.bind(this), false)
+      return this.el
+    }
+}
+````
+
+1、render 函数里面的 HTML 字符串会根据 this.state 不同而不同（这里是用了 ES6 的模版字符串，做这种事情很方便）。  
+2、新增一个 setState 函数，这个函数接受一个对象作为参数；它会设置实例的 state，然后重新调用一下 render 方法。  
+3、当用户点击按钮的时候， changeLikeText 会构建新的 state 对象，这个新的 state ，传入 setState 函数当中。
+
+这样的结果就是，用户每次点击，changeLikeText 都会调用改变组件状态然后调用 setState ；setState 会调用 render ，render 方法会根据 state 的不同重新构建不同的 DOM 元素。
+也就是说，你只要调用setState，组件就会重新渲染。我们顺利地消除了手动的 DOM 操作。
+
+
+
+## 4、基础语法
 
 ### 4、JSX---描述UI信息
 
@@ -380,7 +575,13 @@ this.setState({name: e.target.value});
 
 
 
-### 7、事件对象
+### 7、map---渲染列表数据
+
+
+
+
+
+### 8、事件对象
 
 事件对象(event)：在触发DOM上的某个事件是，会产生一个事件对象event。这个对象中包含着所有与事件有关的信息。
 
@@ -513,7 +714,17 @@ run=()=> {
 <h1 onClick={this.handleClickOnTitle.bind(this, 'Hello')}>React 小书</h1>
 ````
 
-### 9、state & setState
+### 9、state vs props
+
+
+
+### 10、 配置组件的 props
+
+
+
+
+
+### 10、state & setState
 
 setState 方法由父类 Component 所提供。当我们调用这个函数的时候，React.js 会更新组件的状态 state ，并且重新调用 render 方法，然后再把 render 方法所渲染的最新的内容显示到页面上。
 
@@ -886,13 +1097,392 @@ Is this ok? (yes)
 
 
 
-## 5、Redux
+## 5、状态提升
+
+当某个状态被多个组件依赖或者影响的时候，就把该状态提升到这些组件的最近公共父组件中去管理，用 props 传递数据或者函数来管理这种依赖或着影响的行为。
+
+
+这种无限制的提升不是一个好的解决方案。一旦发生了提升，你就需要修改原来保存这个状态的组件的代码，也要把整个数据传递路径经过的组件都修改一遍，好让数据能够一层层地传递下去。这样对代码的组织管理维护带来很大的问题。到这里你可以抽象一下问题：
+
+
+如何更好的管理这种被多个组件所依赖或影响的状态？
+
+你可以看到 React.js 并没有提供好的解决方案来管理这种组件之间的共享状态。在实际项目当中状态提升并不是一个好的解决方案，所以我们后续会引入 Redux 这样的状态管理工具来帮助我们来管理这种共享状态，但是在讲解到 Redux 之前，我们暂时采取状态提升的方式来进行管理。
+
+对于不会被多个组件依赖和影响的状态（例如某种下拉菜单的展开和收起状态），一般来说只需要保存在组件内部即可，不需要做提升或者特殊的管理。
+
+
+
+## 6、Redux
+
+### React 的 Context
+
+**React.js 的 context**：某个组件只要往自己的context里面放了某些状态，这个组件之下的所有子组件都直接访问这个状态而不需要通过中间组件的传递。且只有它的子组件能够访问，它的父组件是不能访问，可以理解每个组件的 context 就是瀑布的源头只能往下流不能往上飞。
+
+````
+//父组件
+class Index extends Component {
+  static childContextTypes = {//3、为getChildContext方法返回给子组件的状态添加类型验证（必写，因为 context 是一个危险的特性，React.js团队想把危险的事情搞复杂一些，提高使用门槛以致不会被滥用）
+    themeColor: PropTypes.string
+  }
+  
+  constructor () {
+    super()
+    this.state = { 
+      themeColor: 'red' //1、在父组件中设置要存到context的状态
+    }
+  }
+
+  getChildContext () {//2、使用getChildContext方法将状态return给子组件的context
+    return { themeColor: this.state.themeColor }
+  }
+
+  render () {
+    return (
+      <div>
+        <Title />
+        <Content />
+      </div>
+    )
+  }
+}
+//子组件1：Title
+class Title extends Component {
+  static contextTypes = {//4、子组件中使用contextTypes来声明和验证需要获取的状态的类型
+    themeColor: PropTypes.string
+  }
+  render () {
+    return (
+      //5、使用this.context.xxx来使用context中的状态
+      <h1 style={{ color: this.context.themeColor }}>React.js 小书标题</h1>
+    )
+  }
+}
+//子组件2：Content
+class Content extends Component {
+  render () {
+    return (
+    <div>
+      <h2>React.js 小书内容</h2>
+    </div>
+    )
+  }
+}
+````
 
 
 
 
 
-## 6、路由
+**Redux** 是一种架构模式（Flux架构的一种变种），它不关注你到底用什么库，你可以把它应用到 React 和 Vue，甚至跟 jQuery 结合都没有问题。  
+**React-redux** 是把 Redux 这种架构模式和 React.js 结合起来的一个库，就是 Redux 架构在 React.js 中的体现。
+
+### 动手实现Redux
+
+一个可以被不同模块任意修改共享的数据状态就是魔鬼，一旦数据可以任意修改，所有对共享状态的操作都是不可预料的（某个模块 appState.title = null 你一点意见都没有），出现问题的时候 debug 起来就非常困难，这就是老生常谈的尽量避免全局变量。  
+矛盾就是：**“模块（组件）之间需要共享数据”，和“数据可能被任意修改导致不可预料的结果”之间的矛盾。**
+
+
+**纯函数**：函数的返回结果只依赖于它的参数，并且在执行过程里面没有副作用。
+副作用：函数执行过程对产生的外部可观察的变化，如修改外部的变量，调用 DOM API 修改页面，发送 Ajax 请求，调用 window.reload 刷新浏览器，甚至是 console.log 往控制台打印数据。  
+纯函数很严格，几乎除了计算数据以外什么都不能干，还不能依赖除了函数参数以外的数据。  
+作用：纯函数非常“靠谱”，不会产生不可预料的行为，也不会对外部产生影响。如果应用程序大多数函数都是由纯函数组成，那么程序测试、调试起来会非常方便。
+
+````
+function createStore (state, stateChanger) {
+  const listeners = []
+  const subscribe = (listener) => listeners.push(listener)
+  const getState = () => state
+  const dispatch = (action) => {
+    state = stateChanger(state, action) // 覆盖原对象
+    listeners.forEach((listener) => listener())
+  }
+  return { getState, dispatch, subscribe }
+}
+
+function renderApp (newAppState, oldAppState = {}) { // 防止 oldAppState 没有传入，所以加了默认参数 oldAppState = {}
+  if (newAppState === oldAppState) return // 数据没有变化就不渲染了
+  console.log('render app...')
+  renderTitle(newAppState.title, oldAppState.title)
+  renderContent(newAppState.content, oldAppState.content)
+}
+
+function renderTitle (newTitle, oldTitle = {}) {
+  if (newTitle === oldTitle) return // 数据没有变化就不渲染了
+  console.log('render title...')
+  const titleDOM = document.getElementById('title')
+  titleDOM.innerHTML = newTitle.text
+  titleDOM.style.color = newTitle.color
+}
+
+function renderContent (newContent, oldContent = {}) {
+  if (newContent === oldContent) return // 数据没有变化就不渲染了
+  console.log('render content...')
+  const contentDOM = document.getElementById('content')
+  contentDOM.innerHTML = newContent.text
+  contentDOM.style.color = newContent.color
+}
+
+let appState = {
+  title: {
+    text: 'React.js 小书',
+    color: 'red',
+  },
+  content: {
+    text: 'React.js 小书内容',
+    color: 'blue'
+  }
+}
+
+function stateChanger (state, action) {
+  switch (action.type) {
+    case 'UPDATE_TITLE_TEXT':
+      return { // 构建新的对象并且返回
+        ...state,
+        title: {
+          ...state.title,
+          text: action.text
+        }
+      }
+    case 'UPDATE_TITLE_COLOR':
+      return { // 构建新的对象并且返回
+        ...state,
+        title: {
+          ...state.title,
+          color: action.color
+        }
+      }
+    default:
+      return state // 没有修改，返回原来的对象
+  }
+}
+
+const store = createStore(appState, stateChanger)
+let oldState = store.getState() // 缓存旧的 state
+store.subscribe(() => {
+  const newState = store.getState() // 数据可能变化，获取新的 state
+  renderApp(newState, oldState) // 把新旧的 state 传进去渲染
+  oldState = newState // 渲染完以后，新的 newState 变成了旧的 oldState，等待下一次数据变化重新渲染
+})
+
+renderApp(store.getState()) // 首次渲染页面
+store.dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《React.js 小书》' }) // 修改标题文本
+store.dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'blue' }) // 修改标题颜色
+````
+
+### Redux使用
+
+
+
+## 6、请求
+
+### 使用axios
+
+**详细使用方法可通过www.npmjs.com查看该模块文档**
+
+````
+//安装axios模块
+npm install axios --save
+
+//引入axios模块
+import Axios form 'axios';
+````
+
+##### 1、Performing a GET request
+
+````
+// Make a request for a user with a given ID
+axios.get('/user?ID=12345')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+ 
+// Optionally the request above could also be done as
+axios.get('/user', {
+    params: {
+      ID: 12345
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+````
+
+##### 2、Performing a POST request
+
+````
+axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+````
+
+##### 3、Performing multiple concurrent requests
+
+````
+function getUserAccount() {
+  return axios.get('/user/12345');
+}
+ 
+function getUserPermissions() {
+  return axios.get('/user/12345/permissions');
+}
+ 
+axios.all([getUserAccount(), getUserPermissions()])
+  .then(axios.spread(function (acct, perms) {
+    // Both requests are now complete
+  }));
+````
+
+### 使用fetch-jsonp
+
+
+
+
+
+
+
+## 8、路由
+
+/*
+
+  react路由的配置：
+    1、找到官方文档 https://reacttraining.com/react-router/web/example/basic
+
+    2、安装  cnpm install react-router-dom --save
+
+
+    3、找到项目的根组件引入react-router-dom
+    
+       import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+    
+    4、复制官网文档根组件里面的内容进行修改  （加载的组件要提前引入）
+
+
+         <Router>
+    
+                <Link to="/">首页</Link>
+    
+                <Link to="/news">新闻</Link>
+    
+                <Link to="/product">商品</Link>
+
+
+               <Route exact path="/" component={Home} />
+               <Route path="/news" component={News} />    
+               <Route path="/product" component={Product} />   
+         </Router>
+
+
+         exact表示严格匹配
+
+*/
+
+
+
+import React, { Component } from 'react';
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
+import './assets/css/index.css'
+
+import Home from './components/Home';
+import News from './components/News';
+import Product from './components/Product';
+
+class App extends Component {
+
+  render() {
+    return (
+        <Router>
+          <div>           
+
+              <header className="title">
+              
+                <Link to="/">首页</Link>
+    
+                <Link to="/news">新闻</Link>
+    
+                <Link to="/product">商品</Link>
+    
+              </header>
+
+
+               <br />
+               <hr />
+      
+               <br />
+
+
+​      
+
+              <Route exact path="/" component={Home} />
+              <Route path="/news" component={News} />    
+              <Route path="/product" component={Product} />                 
+          </div>
+      </Router>
+    );
+
+  }
+}
+
+export default App;
+
+
+
+
+
+## 9、Ref 和 Dom 操作
+
+在 React.js 当中你基本不需要和 DOM 直接打交道。它提供了一系列的 on* 方法进行事件监听；以前通过手动 DOM 操作进行页面更新（例如借助 jQuery），而在 React.js 当中可以直接通过 setState 的方式重新渲染组件，从而达到页面更新的效果。
+
+但有些时候还是需要和 DOM 打交道。比如进入页面以后自动 focus 到某个输入框，需要调用 input.focus() 的 DOM API，动态获取某个 DOM 元素的尺寸来做后续的动画等等。
+
+**React.js 当中提供了ref属性,属性值是一个回调函数,这个回调函数的参数为指定的DOM元素自身或者挂载的组件实例，在组件挂载完成以后或者卸载的时候被调用。**
+
+#### 为DOM元素添加Ref
+
+````
+class AutoFocusInput extends Component {
+  componentDidMount () {
+    this.input.focus()
+  }
+
+  render () {
+    return (
+      <input ref={(input) => this.input = input} />//参数为input自身
+    )
+  }
+}
+````
+
+**注意：** 
+1、**在组件中使用ref时要求组件必须是class声明的**，而不能在函数式声明组件中使用ref，因为他们不存在实例。 
+2、ref遗留的问题：以前的ref属性获取到的是字符串，而DOM节点通过this.refs.textInput来获取。但是因为string类型的ref有一定的问题，在以后的react版本中将会被移除，建使用回调函数来替代。 
+3、**能不用 ref 就不用**。特别是要避免用 ref 来做 React.js 本来就可以做到的页面自动更新的操作和事件监听。
+
+
+
+## 10、dangerouslySetHTML 和 style 属性
+
+
+
+
+
+## 11、props.children 和容器类组件
 
 
 

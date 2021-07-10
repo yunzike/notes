@@ -343,7 +343,7 @@ activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 
 
 
-## axious
+## 7、axious
 
 请求
 
@@ -361,7 +361,7 @@ activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 
 
 
-## 、Element-UI
+## 10、Element-UI
 
 第三方组件库
 
