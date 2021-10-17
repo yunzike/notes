@@ -534,15 +534,126 @@ MyBatis中通过typeHandlers完成Java类型和jdbc类型的转换。
 
 ## 9、关联映射
 
+[MyBatis（七）：一对一、一对多、多对多 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/37259714)
+
 ### 一对一
 
 学生和身份证
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="one.to.one.mapper.OrdersMapper">
+    <!--
+    嵌套结果：使用嵌套结果映射来处理重复的联合结果的子集
+    封装联表查询的数据(去除重复的数据)
+    select * from orders o,user u where o.user_id=u.id and o.id=#{id}
+    -->
+    <select id="selectOrderAndUserByOrderID" resultMap="getOrderAndUser">
+        select *
+        from orders o,
+             user u
+        where o.user_id = u.id
+          and o.id = #{id}
+    </select>
+    <resultMap type="com.ys.po.Orders" id="getOrderAndUser">
+        <!--
+        id:指定查询列表唯一标识，如果有多个唯一标识，则配置多个id
+        column:数据库对应的列
+        property:实体类对应的属性名
+        -->
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <!--association:用于映射关联查询单个对象的信息
+        property:实体类对应的属性名
+        javaType:实体类对应的全类名
+        -->
+        <association property="user" javaType="com.ys.po.User">
+            <!--
+            id:指定查询列表唯一标识，如果有多个唯一标识，则配置多个id
+            column:数据库对应的列
+            property:实体类对应的属性名
+            -->
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="sex" property="sex"/>
+        </association>
+    </resultMap>
+
+
+    <!--
+    方式二：嵌套查询：通过执行另外一个SQL映射语句来返回预期的复杂类型
+    select user_id from order WHERE id=1;//得到user_id
+    select * from user WHERE id=1  //1 是上一个查询得到的user_id的值
+    property:别名(属性名)    column：列名 -->
+    <select id="getOrderByOrderId" resultMap="getOrderMap">
+        select *
+        from order
+        where id = #{id}
+    </select>
+    <resultMap type="com.ys.po.Orders" id="getOrderMap">
+        <id column="id" property="id"/>
+        <result column="number" property="number"/>
+        <association property="userId" column="id" select="getUserByUserId"/>
+    </resultMap>
+    <select id="getUserByUserId" resultType="com.ys.po.User">
+        select *
+        from user
+        where id = #{id}
+    </select>
+</mapper> 
+```
+
+
 
 
 
 ### 一对多处理
 
 某个课程，有哪些学生选修
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="one.to.many.mapper.UserMapper">
+    <!--
+    方式一：嵌套结果：使用嵌套结果映射来处理重复的联合结果的子集
+    封装联表查询的数据(去除重复的数据)
+    select * from user u,orders o where u.id=o.user_id and u.id=#{id}
+    -->
+    <select id="selectUserAndOrdersByUserId" resultMap="getUserAndOrders">
+        select u.*, o.id oid, o.number number
+        from user u,
+             orders o
+        where u.id = o.user_id
+          and u.id = #{id}
+    </select>
+    <resultMap type="com.ys.po.User" id="getUserAndOrders">
+        <!--id:指定查询列表唯一标识，如果有多个唯一标识，则配置多个id
+        column:数据库对应的列
+        property:实体类对应的属性名 -->
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="sex" property="sex"/>
+        <!--
+        property:实体类中定义的属性名
+        ofType：指定映射到集合中的全类名
+        -->
+        <collection property="orders" ofType="com.ys.po.Orders">
+            <id column="oid" property="id"/>
+            <result column="number" property="number"/>
+        </collection>
+        
+        <!--
+			如果是 List<String> xxx
+			<collection property="clinicList" ofType="string" javaType="list">
+            	<result column="clinic_id"/>
+        	</collection>
+ 		-->
+    </resultMap>
+</mapper> 
+```
 
 
 
@@ -552,7 +663,7 @@ MyBatis中通过typeHandlers完成Java类型和jdbc类型的转换。
 
 学生和课程
 
-### 
+
 
 
 

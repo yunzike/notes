@@ -4,20 +4,20 @@
 
 - MVVM思想
 
-  M：即Model，模型，包括数据和一些基本操作
-  V：即view，视图，页面渲染结果
-  VM：即 View-Model，模型与视图间的双向操作（无需开发人员干涉）
+  M：即Model，模型，包括数据和一些基本操作，如 Vue 中的 data 。
+  V：即view，视图，页面渲染结果。
+  VM：即 View-Model，模型与视图间的双向操作（无需开发人员干涉），如 Vue 实例。
+
+  ![image-20200628013207740](../images/image-20200628013207740.png)
 
   
 
-  在MVVM之前，开发人员从后端获取需要的数据模型，然后要通过DoM操作Model渲染到view中。而后当用户操作视图，我们还需要通过DOM获取view中的数据，然后同步到Model中。
+  在 MVVM 之前，开发人员从后端获取需要的数据模型，然后要通过 DOM 操作 Model 渲染到 View 中。而后当用户操作视图，我们还需要通过 DOM 获取 View 中的数据，然后同步到 Model 中。
+  
+  而 MVVM 中的 VM 要做的事情就是把 DOM 操作完全封装起来，开发人员不用再关心  Model 和 View 之间是如何互相影响的：
+  只要我们 Model 发生了改变，View 上自然就会表现出来。当用户修改了 View，Model 中的数据也会跟着改变。把开发人员从繁琐的DOM操作中解放出来，把关注点放在如何操作Model上。
 
-  而MVVM中的VM要做的事情就是把DOM操作完全封装起来，开发人员不用再关心 Model和view之间是如何互相影响的：
-  只要我们Model发生了改变，View上自然就会表现出来。
-  当用户修改了view, Model中的数据也会跟着改变。
-  把开发人员从繁琐的DOM操作中解放出来，把关注点放在如何操作Model上。
 
-![image-20200628013207740](../images/image-20200628013207740.png)
 
 - Vue简介
 
@@ -147,91 +147,158 @@
 
 ## 3、Vue 基本语法
 
-### 3.1、模板语法
+### 3.1 Vue 实例
 
-```html
-<body>
-    <div id="app">
-        {{message}}
-        <button v-on:click="test">点击</button>
-    </div>
-    <script>
-        var vm = new Vue({
-            el:"#app",
-            data:{
-                message:"hello Vue!"
-            },
-            methods:{
-                test:function() {
-                    alert("你好");
-                }
-            }
-        })
-    </script>
-</body>
-```
+- Vue 2.X
 
-- Vue实例
+  ```html
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="UTF-8">
+      <!-- 以 CDN 包的形式导入 Vue.js -->
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+      <title>Vue Demo</title>
+  </head>
+  
+  <body>
+      <div id="app">
+          <!-- 插值表达式使用 Vue 数据 -->
+          <p>你好 {{message}}</p>
+          <button v-on:click="test">点击</button>
+      </div>
+  
+      <script>
+          // 创建一个 Vue 实例，并传入配置对象
+          new Vue({
+              // el 挂载点，指定Vue实例的作用对象
+              // 不能用在html和body上，一般使用id选择器。
+              el: "#app",
+              // Vue 实例数据
+              data: {
+                  message: "hello Vue!"
+              },
+              // Vue 实例方法
+              methods: {
+                  test: function () {
+                      alert("你好");
+                  }
+              }
+          })
+      </script>
+  </body>
+  </html>
+  ```
 
-  el：挂载点，指定Vue实例的作用对象，不能用在html和body上，一般使用id选择器。
+  data 与 el 的 2 种写法:
+  1. el 有 2 种写法:
+  (1) new Vue 时候直接传递 e1属性（常用）
+  (2) 先new Vue 再通过 vm.$mount( ' #root' ) 指定 el 属性 (不常用)
+  2. data 有 2 种写法
+  (1)对象式：非组件化编码时可以写对象，也可以写函数。
+  (2).函数式：组件化编码必须使用函数式的 data 。
 
-  data：Vue数据
+- Vue 3.X
 
-  methods：方法
+  ```html
+  
+  ```
 
-- 数据绑定
+### 3.2 插值表达式
 
-  {{ Vue数据名或js表达式 }}
+> 用于解析**标签体**中的内容
 
-### 3.2、Vue指令
+- 格式：{{ 表达式 }}
 
-#### 1、插值表达式
-
-- 格式：
-  {{ 表达式 }}
-
-- 说明：
-
-  只能用于标签体中，而不能用在属性里面。
-  该表达式支持js语法，可以调用is内置函数（必须有返回值）
-  表达式必须有返回结果。例如1+1，没有结果的表达式不允许使用，如：leta=1+1；
-  可以直接获取Vue实例中定义的数据或函数。
+  说明：该表达式必须有返回结果，支持 Js 语法，可以调用 Js 内置函数。可以直接获取 Vue实例中定义的数据或函数。
 
 - 插值闪烁
 
-  使用{{}}方式在网速较慢时会出现问题。在数据未加载完成时，页面会显示出原始的{{}}，加载完毕后才显示正确数据，我们称为插值闪烁。
+  使用 {{}} 方式在网速较慢时可能会出现问题。在数据未加载完成时，页面会显示出原始的{{}}，加载完毕后才显示正确数据，我们称为插值闪烁。
 
-#### 2、v-text和v-html
+### 3.3 Vue 指令
 
+> 用于解析**标签属性**、**标签内容**、**绑定事件**等
 
+#### v-bind（:）
 
-#### 3、v-bind
-
-```html
-<!-- 接收参数，用于绑定属性，可以简写为：-->
-<a v-bind:href="url">url为Vue中的数据</a>
-<a :href="url">url为Vue中的数据</a>
-
-```
-
-![image-20200628015944656](../images/image-20200628015944656.png)
-
-#### 4、v-model：双向绑定数据
+用于绑定变量到属性，可以简写为 `：`
 
 ```html
-<!-- 表单项值的改变会同步改变被绑定的Vue的数据 -->
-<input id="username" type="text" v-model="username"/>
+<div id="root">
+  <a v-bind:href="link">url为Vue中的数据</a>
+	<a :href="link">url为Vue中的数据</a>
+  
+  <div :style="{ color: activeColor, fontSize: size }">你好</div>
+</div>
 <script>
-	var vm = new Vue({
-        el:"#username",
-        data:{
-         username:"默认值"   
-        }
-    })
+	new Vue({
+    el:"#root",
+    data:{
+      link:"http://www.baidu.com/",
+      activeColor: 'red',
+      size: '30px'   
+    }
+  })
 </script>
 ```
 
-#### 2、v-on（@）
+#### v-model
+
+用于双向数据绑定，只能用于输入类的元素
+
+```html
+<!-- 还可以省略 :value ,只写 v-model ，会自动绑定 value 属性  -->
+<input id="username" type="text" v-model:value="name"/>
+<script>
+	new Vue({
+    el:"#username",
+    data:{
+      name:"张三"
+    }
+  })
+</script>
+```
+
+- **单向数据绑定 & 双向数据绑定**
+
+  将 Vue 实例 data 中的变量绑定到页面表单项。
+
+  **单向数据绑定**：data 中变量值的改变会驱动页面表单项的数据改变，而表单项数据的修改不能引起 data 中变量值的改变；如使用 v:bind 绑定。
+
+  **双向数据绑定**： data 中变量的修改会使得表单项数据的改变，同时表单项数据的修改也会使得 data 中变量值的改变。使用 v:model 绑定。
+
+- **React 数据是单向绑定的**
+
+  想要实现数据的双向绑定，必须借助 onChange 事件监听表单项中数据的修改，从而再手动修改 state 中的变量，使得表单项成为受控组件。
+
+- **数据代理**
+
+  关于Vue中的数据代理:
+  1.什么是数据代理?
+  (1).配置对象data中的数据，会被收集到vm._ data中， 然后通过，Object . defineProperty i让:vm上拥有data中所有的局
+  (2).当访间vm的msg时，返回的是_ data 当中同名属性的值
+  (3).当修改vm的msg时，修改的是_ data 当中同名属性的值
+  2.为什么要数据代理?
+  为了更加方便的读取和修改_ data中的数据，不做数据代理，就要: vm.. xx访间数据
+  3.扩展思考? -为什么要先收集在data中， 然后再代理出去呢?
+  更高效的监视数据(直接收集到vm上会导致监视效率太低)
+
+#### v-text & v-html
+
+v-html 将数据渲染成原始html
+
+```html
+<span v-html="rawHtml"></span>
+```
+
+#### 5、v-once：一次性插值
+
+```html
+<span v-once>这个将不会改变: {{ msg }}</span>
+```
+
+#### v-on（@）
 
 接收方法，用于绑定事件，可以简写为@
 
@@ -256,19 +323,7 @@
 </script>
 ```
 
-#### 3、v-once：数据绑定仅生效一次
-
-```html
-<span v-once>这个将不会改变: {{ msg }}</span>
-```
-
-#### 4、将数据渲染成原始html
-
-```html
-<span v-html="rawHtml"></span>
-```
-
-#### 5、v-show & v-if
+#### 7、v-show & v-if
 
 v-show：根据表达式的真假来显示元素，底层修改的是display属性
 
@@ -282,7 +337,7 @@ v-if：根据表达式值的真假来插入/移除指定元素，因为操作了
 <p v-if="seen">seen的值为true时显示</p>
 ```
 
-#### 6、v-for
+#### 8、v-for
 
 遍历数组、对象
 
@@ -307,17 +362,40 @@ v-if：根据表达式值的真假来插入/移除指定元素，因为操作了
 </script>
 ```
 
+### 3.4 自定义指令
+
+
+
+### 3.5 计算属性
+
+//计算属性 类似于data概念
+computed: {}
+
+### 3.6 监视属性
+
+//监视data中的数据变化
+watch: {}
+
+### 3.6 过滤器
+
+
+
 
 
 ## 4、生命周期
 
-```javascript
-//监听属性 类似于data概念
-computed: {},
-//监控data中的数据变化
-watch: {},
-    
+![生命周期](../images/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
 
+常用的生命周期钩子：
+      1.mounted: 发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】。
+      2.beforeDestroy: 清除定时器、解绑自定义事件、取消订阅消息等【收尾工作】。
+
+关于销毁Vue实例
+      1.销毁后借助Vue开发者工具看不到任何信息。
+      2.销毁后自定义事件会失效，但原生DOM事件依然有效。
+      3.一般不会在beforeDestroy操作数据，因为即便操作数据，也不会再触发更新流程了。
+
+```javascript
 //生命周期 - 创建完成（可以访问当前this实例）
 created() {},
 //生命周期 - 挂载完成（可以访问DOM元素）
@@ -339,7 +417,94 @@ activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 
 ## 6、父子组件传值
 
-[Vue父子组件之间的传值及父子组件之间相互调用属性或方法 - 云+社区 - 腾讯云 (tencent.com)](https://cloud.tencent.com/developer/article/1589230#:~:text=Vue父子组建之间的传值：. 一、父子组建之间的传值. 1.1 父组件向子组件传值. 父组件向子组件传值是通过属性的方式,传值，传的值可以是任意类型，甚至可以是父组件的方法或者父组件对象本身。. 为方便理解可以简单将父组件向子组件传值按以下步骤实现。. 1. 在父组件中引入子组件；. 2. 并在components中注册子组件；.)
+- 父组件 Parent
+
+  ```vue
+  <template>
+    <div>
+      <h3>我是父组件:</h3>
+      <div>父组件number值:{{ number }}</div>
+  
+      <br/><br/><br/><br/>
+  
+      <!--子组件-->
+      <!-- 给子组件传入父组件数据：parentData , 父组件方法：editNuber -->
+      <Child :parentData="parentData" @editNumber="editNumber"> </Child>
+    </div>
+  </template>
+  
+  <script>
+  import Child from "./Child.vue";
+  
+  export default {
+    name: "Parent",
+    components: {
+      Child,
+    },
+    data() {
+      return {
+        parentData: "父组件数据",
+        number: 0,
+      };
+    },
+    methods: {
+      editNumber(index) {
+        console.log("子组件传值：", index);
+        this.number = this.number + index;
+      },
+    },
+  };
+  </script>
+  
+  <style scoped></style>
+  ```
+
+- 子组件 Child
+
+  ```vue
+  <template>
+    <div>
+      <h3>我是子组件：</h3>
+      <div>{{ parentData }}</div>
+  
+      <!--绑定要求改变父组件值的事件-->
+      <button type="primary" @click="change">
+        点我改变父组件的值
+      </button>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: "Child",
+    components: {},
+  
+    //接收父组件数据
+    props: {
+      parentData: {
+        type: String,
+        default: "",
+      },
+    },
+    
+    // 接受父组件数据方式二：
+    // props: ["parentData"],
+    
+    data() {
+      return {};
+    },
+    methods: {
+      change() {
+        console.log("调用子组件 change 方法");
+        // 回调父组件方法 editNumber 修改父组件中的数据
+        this.$emit("editNumber", 1);
+      },
+    },
+  };
+  </script>
+  
+  <style scoped></style>
+  ```
 
 
 
@@ -349,13 +514,74 @@ activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 
 
 
-## 8、Vue-router
+
+
+## 8、vue脚手架配置代理
+
+### 方法一
+
+####  在vue.config.js中添加如下配置：
+
+```javascript
+devServer:{
+  proxy:"http://localhost:5000"
+}
+```
+
+#### 说明：
+
+- 优点：配置简单，请求资源时直接发给前端（8080）即可。
+- 缺点：不能配置多个代理，不能灵活的控制请求是否走代理。
+- 工作方式：若按照上述配置代理，当请求了前端不存在的资源时，那么该请求会转发给服务器 （优先匹配前端资源）
+
+### 方法二
+
+####  编写vue.config.js配置具体代理规则：
+
+```javascript
+module.exports = {
+	devServer: {
+      proxy: {
+      '/api1': {// 匹配所有以 '/api1'开头的请求路径
+        target: 'http://localhost:5000',// 代理目标的基础路径
+        changeOrigin: true,
+        pathRewrite: {'^/api1': ''}
+      },
+      '/api2': {// 匹配所有以 '/api2'开头的请求路径
+        target: 'http://localhost:5001',// 代理目标的基础路径
+        changeOrigin: true,
+        pathRewrite: {'^/api2': ''}
+      }
+    }
+  }
+}
+/*
+   changeOrigin设置为true时，服务器收到的请求头中的host为：localhost:5000
+   changeOrigin设置为false时，服务器收到的请求头中的host为：localhost:8080
+   changeOrigin默认值为true
+*/
+```
+
+#### 说明：
+
+- 优点：可以配置多个代理，且可以灵活的控制请求是否走代理。
+- 缺点：配置略微繁琐，请求资源时必须加前缀。
+
+
+
+## 9、Vue-router
 
 路由
 
 
 
-## 9、Mobx
+## 9、Vuex
+
+
+
+
+
+## 10、Mobx
 
 数据管理
 

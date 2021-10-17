@@ -241,6 +241,10 @@ SpringCloud 社区 Consul 文档：https://spring.io/projects/spring-cloud-consu
 
 ### 7.1 介绍
 
+Feign是一个声明式的HTP客户端，它的目的就是让远程调用更加简单。 Feign提供了HTP请求的模板，**通过编写简单的接口和插入注解**，就可以定义好HTP请求的参数、格式、地址等信息。
+Feign整合了 **Ribbon（负载均衡）和 Hystrix（服务熔断)**，可以让我们不再需要显式地使用这两个组件。
+Spring Cloud Feign在 Netflix Feign的基础上扩展了对 SpringMvc注解的支持，在其实现下，我们只需创建一个接口并用注解的方式来配置它，即可完成对服务提供方的接囗绑定。简化了Spring Cloud Ribbon自行封装服务调用客户端的开发量。
+
 #### Ribbon
 
 *   Ribbon 是 Netflix 开源的`基于HTTP和TCP等协议负载均衡组件`。
@@ -262,9 +266,103 @@ SpringCloud 社区 Consul 文档：https://spring.io/projects/spring-cloud-consu
 
 ### 7.2 使用
 
+- 1）引入依赖
+
+  ```xml
+  <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+  </dependency>
+  ```
+
+- 2）开启 Feign 功能
+
+  ```java
+  // 在SpringBoot的主类开户Feign功能
+  @EnableFeignClients（basePackages ="com.atguigu.gulimall.member.feign"）
+  ```
+
+- 3）声明远程接口
+
+  编写一个接口，告诉 SpringCLoud 这个接口需要调用远程服务，声明接口的每一个方法都是调用哪个远程服务的那个请求
+
+  ```java
+  @FeignClient("gulimall-coupon")
+  public interface CouponFeignService {
+  
+      @RequestMapping("/coupon/coupon/member/list")
+      public R membercoupons();
+  
+  }
+  ```
+  
+
+### 7.3 报错 
+
+```bash
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'memberController': Unsatisfied dependency expressed through field 'couponFeignService'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'com.yunzike.gulimall.member.feign.CouponFeignService': Unexpected exception during bean creation; nested exception is java.lang.IllegalStateException: No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:660) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1413) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:917) ~[spring-context-5.3.4.jar:5.3.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:582) ~[spring-context-5.3.4.jar:5.3.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:144) ~[spring-boot-2.4.3.jar:2.4.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:767) [spring-boot-2.4.3.jar:2.4.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759) [spring-boot-2.4.3.jar:2.4.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:426) [spring-boot-2.4.3.jar:2.4.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:326) [spring-boot-2.4.3.jar:2.4.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1311) [spring-boot-2.4.3.jar:2.4.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300) [spring-boot-2.4.3.jar:2.4.3]
+	at com.yunzike.gulimall.member.GulimallMemberApplication.main(GulimallMemberApplication.java:16) [classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'com.yunzike.gulimall.member.feign.CouponFeignService': Unexpected exception during bean creation; nested exception is java.lang.IllegalStateException: No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:537) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1380) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1300) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:657) ~[spring-beans-5.3.4.jar:5.3.4]
+	... 21 common frames omitted
+Caused by: java.lang.IllegalStateException: No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?
+	at org.springframework.cloud.openfeign.FeignClientFactoryBean.loadBalance(FeignClientFactoryBean.java:351) ~[spring-cloud-openfeign-core-3.0.3.jar:3.0.3]
+	at org.springframework.cloud.openfeign.FeignClientFactoryBean.getTarget(FeignClientFactoryBean.java:398) ~[spring-cloud-openfeign-core-3.0.3.jar:3.0.3]
+	at org.springframework.cloud.openfeign.FeignClientFactoryBean.getObject(FeignClientFactoryBean.java:371) ~[spring-cloud-openfeign-core-3.0.3.jar:3.0.3]
+	at org.springframework.cloud.openfeign.FeignClientsRegistrar.lambda$registerFeignClient$0(FeignClientsRegistrar.java:235) ~[spring-cloud-openfeign-core-3.0.3.jar:3.0.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainFromSupplier(AbstractAutowireCapableBeanFactory.java:1231) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1173) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:564) ~[spring-beans-5.3.4.jar:5.3.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524) ~[spring-beans-5.3.4.jar:5.3.4]
+	... 29 common frames omitted
+```
+
+关键在于` No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?`，SpringCloud OpenFeign 在 Hoxton.M2 RELEASED 版本之后不再使用 Ribbon 而是使用 spring-cloud-loadbalancer，所以不引入 spring-cloud-loadbalancer 会报错
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-loadbalancer</artifactId>
+</dependency>
+```
 
 
-### 7.3 原理
+
+
+
+
+### 7.2 原理
+
+
 
 
 
@@ -277,6 +375,69 @@ SpringCloud 社区 Consul 文档：https://spring.io/projects/spring-cloud-consu
 
 
 ## 10、Gateway
+
+官方文档：https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories
+
+- **Route** 路由
+- **Predicate** 断言
+- **Filter** 过滤器
+
+
+
+2）使用网关
+
+```java
+// 1 开启网关服务的服务注册与发现
+@EnableDiscoveryClient
+
+// 2、使用配置中心
+
+// 3、因为pom.xml 引入了common从而引入了MyBatis Plus，需要排除数据源的自动配置
+@EnableDiscoveryClient
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+public class GulimallGatewayApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(GulimallGatewayApplication.class, args);
+    }
+
+}
+
+// 4、设置端口为88
+
+
+//5、参考官方文档配置gateway路由，application.yml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: test_route
+          uri:  http://www.baidu.com
+          predicates:
+            - Query=url,baidu
+        - id: qq_route
+          uri: http://www.qq.com
+          predicates:
+            - Query=url,qq
+```
+
+## 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -304,7 +465,219 @@ SpringCloud 社区 Consul 文档：https://spring.io/projects/spring-cloud-consu
 
 ## 16、Nacos
 
+- 简介
 
+  Nacos 是阿里巴巴开源的一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。使用java编写，需要依赖 java 环境。
+
+- 相关文档
+
+  Nacos 官方文档地址：
+
+  https://nacos.io/zh-cn/docs/what-is-nacos.html
+
+  Spring Cloud Alibaba Nacos 文档 ：
+
+  https://spring-cloud-alibaba-group.github.io/github-pages/hoxton/en-us/index.html#_spring_cloud_alibaba_nacos_discovery
+
+  github 地址：
+
+  https://github.com/alibaba/nacos
+
+### 16.1 注册中心
+
+- 下载 nacos-server 
+
+  https://github.com/alibaba/nacos/releases
+
+- 启动 nacos-server
+
+  双击 bin 中的 startup.cmd 文件
+  访问 `http:/localhost：8848/nacos/` 
+  使用默认的 nacos/nacos 进行登录
+
+  **启动报错**：
+
+  ```bash
+  org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+          at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:156)
+  ```
+
+  nacos 是默认的集群模式 
+
+  ```bash
+  set MODE="cluster"
+  ```
+
+  需要在 startup.cmd 里面改成单机模式
+
+  ```bash
+  set MODE="standalone"
+  ```
+
+- 将微服务注册到 nacos 中
+
+  引入 Nacos Discovery Starter
+
+  ```xml
+  <dependency>
+       <groupId>com.alibaba.cloud</groupId>
+       <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+  </dependency>
+  ```
+
+  在应用的 `/src/main/resources/application.yml` 配置文件中配置 `Nacos Server` 地址
+
+  ```yml
+  spring:
+    cloud:
+      nacos:
+        discovery:
+          server-addr: 127.0.0.1:8848
+  ```
+
+  使用 `@EnableDiscoveryClient` 注解开启服务注册与发现功能
+
+  ```java
+  @EnableDiscoveryClient
+  @SpringBootApplication
+  public class GulimallMemberApplication {
+  
+      public static void main(String[] args) {
+          SpringApplication.run(GulimallMemberApplication.class, args);
+      }
+  
+  }
+  ```
+
+  每一个服务都需要配置服务的名字
+
+  ```yml
+  spring:
+    application:
+      name: gulimall-member
+  ```
+
+
+
+### 16.2 配置中心
+
+#### 使用步骤
+
+1）引入依赖
+
+```xml
+<!-- nacos配置中心 -->
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+</dependency>
+```
+
+```xml
+<!-- 新版本 nacos 配置中心配置文件不生效，可能需要手动引入以下依赖 -->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bootstrap</artifactId>
+</dependency>
+```
+
+2）创建一个 bootstrap.properties 或 bootstrap.yml
+
+```bash
+# 指定服务名
+spring.application.name=gulimall-coupon
+
+# 指定配置中心地址
+spring.cloud.nacos.config.server-addr=127.0.0.1:8848
+```
+
+3）配置中心添加配置文件
+
+默认文件名（ Data Id）：服务名.properties
+
+![image-20210721154633861](../images/image-20210721154633861.png)
+
+![image-20210721154711196](../images/image-20210721154711196.png)
+
+4）@Value（"$配置项的名}"）获取到配置
+
+5）动态获取并刷新配置
+
+在使用配置项的类上添加注解 `@RefreshScope`
+
+
+如果配置中心和当前应用的配置文件中都配置了相同的项，优先使用配置中心的配置。
+
+#### 细节
+
+- **命名空间（配置隔离）**
+
+  默认：public（保留空间）；默认新增的所有配置都在 public空间。
+
+  1、开发，测试，生产：利用命名空间来做环境隔离。
+  注意：在 bootstrap, properties；
+
+  配置上，需要使用哪个命名空间下的配置，只能写命名空间的ID
+
+  ```bash
+  spring.cloud.nacos.config.namespace=9de62e44-cd2a-4a82-bf5c-95878bd5e871
+  ```
+
+  2、每一个微服务之间互相隔离配置，每一个微服务都创建自己的命名空间，只加载自己命名空间下的所有配置
+
+- **配置集**
+
+  即 Nacos 配置中心中的一个配置文件，**配置集ID（Data ID）**：配置文件名
+
+- **配置分组（Group）**
+
+  默认所有的配置集都属于：DEFAULT GROUP；
+
+  指定分组
+
+  ```bash
+  spring.cloud.nacos.config.group=1111
+  ```
+
+- **项目中推荐使用方式**
+
+  每个微服务创建自己的命名空间
+
+  使用配置分组区分环境：dev、test、prod
+
+- **同时加载多个配置集**
+
+  除了加载指定命名空间下的多个指定的配置文件，仍然会加载该命名空间下默认的配置文件（如果有）
+
+  ```yml
+  spring:
+    application:
+      name: gulimall-coupon
+    cloud:
+      nacos:
+        config:
+          server-addr: 127.0.0.1:8848
+          namespace: 57aeb5e2-c7b0-49cd-b416-a29d6d7872ba
+          # ext-config: 已经过时，使用  extensionConfigs
+          extensionConfigs:
+            - dataId: datasource.yml
+              group: dev
+              refresh: true
+            - dataId: mybatis.yml
+              group: dev
+              refresh: true
+            - dataId: other.yml
+              group: dev
+              refresh: true
+  ```
+
+  
+
+  1）、微服务任何配置信息，任何配置文件都可以放在配置中心中
+  2）、只需要在 bootstrap.properties说明加载配置中心中哪些配置文件即可
+  3）、 @VaLue, @ConfigurationProperties。
+  以前 SpringBoot任何方法从配置文件中获取值，都能使用。
+  配置中心有的优先使用配置中心中的
 
 ## 17、Sentinel
 

@@ -748,6 +748,39 @@ Spring通常通过AOP来处理一些具有横切性质的系统性服务，如�
 
 ## 5、事务管理
 
+### 5.1 JdbcTemplate
+
+- 原生 JDBC 
+
+  操作数据库比较繁琐，每次都需要：加载数据库驱动、获取连接、获取PreparedStatement、执行sql、关闭PreparedStatement、关闭连接等。
+
+- JdbcTemplate
+
+  JdbcTemplate 是 Spring 对 JDBC 的封装，目的是使 JDBC 更加易于使用。
+
+- 使用步骤
+
+  1. 创建数据源 DataSource
+  2. 创建 JdbcTemplate
+  3. 调用 JdbcTemplate 的方法操作数据库
+
+
+
+### 5.2 Spring 中使用事务的 2 种方式
+
+- 编程式事务
+
+  通过硬编码的方式使用spring中提供的事务相关的类来控制事务。
+
+  编程式事务主要有2种用法
+
+  - 方式1：通过PlatformTransactionManager控制事务
+  - 方式2：通过TransactionTemplate控制事务
+
+  
+
+- 声明式事务
+
 
 
 

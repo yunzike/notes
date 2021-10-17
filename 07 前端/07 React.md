@@ -8,76 +8,28 @@
 
 ### 2.1 环境搭建
 
-1、官网下载安装Node.js
-命令行查看是否安装成功
-node -v
-查看npm是否安装成功
-npm -v
+1、安装 Node.js 和 npm
 
 2、通过 npm 使用 React
 
-国内使用 npm 速度很慢，设置淘宝定制的 cnpm (gzip 压缩支持) 命令行工具代替默认的 npm。
-
-```
-$ npm install -g cnpm --registry=https://registry.npm.taobao.org
-$ npm config set registry https://registry.npm.taobao.org
-```
-
 全局安装create-react-app模块
 
-```
-$ cnpm install -g create-react-app（使用npm则为npm install -g create-react-app）
+```bash
+$ npm install -g create-react-app
 ```
 
-创建项目
+### 2.2 创建 React 项目
 
-```
+```bash
 $ create-react-app my-app
 ```
 
 运行项目
-进入项目路径
 
-```
+```bash
 $ cd my-app/
-```
-
-运行
-
-```
 $ npm start
 ```
-
-自动在浏览器中运行http://localhost:3000/ ，显示默认React页面
-
-
-
-
-1.下载最新的nodejs，可以选择nodejs官网的任何一个
-  https://nodejs.org/en/
-2.通过Win+R进入cmd黑色窗口，假设是第一次创建react工程
-   在cmd中查看自己安装的nodejs版本，以及npm版本（安装nodejs的时候包含npm），在cmd中输入
- node -v    --->v8.11.1   注意：node 版本>6
- npm  -v    --->5.6.0       注意：npm版本>3
-3.创建全局react，在cmd中输入下列命令行 
-   在执行命令之前，先进入node.js的安装目录，然后才可以进行安装react工程.
-   npm install -g create-react-app 按回车
-  执行结果：
-
-4.然后进入你想创建工程的比如D盘，创建工程名，创建react-basic基础包
-
-进入d盘之后，创建文件夹
-
-完文件夹之后，进入文件夹projects,创建工程名称。
-然后输入create-react-app react-basic执行命令，下载脚手架，
-出现下面结果，说明执行成功
-
-5.进入react-basic，启动npm
-
-执行完上名命令行，便会自动打开一个本地服务的react页面
-
-打包项目
-npm run build 
 
 
 
@@ -85,55 +37,47 @@ npm run build
 
 ![React项目总目录结构](../images/006tNbRwgy1fxv3ha7r97j30m207y0td.jpg?lastModify=1625846474)![React项目总目录结构](../images/006tNbRwgy1fxv3ha7r97j30m207y0td-20191130224134657.jpg?lastModify=1625846474)
 
-#### 1、package.json 定义项目所需模块及配置信息
+- package.json 定义项目所需模块及配置信息
 
-![img](../images/006tNbRwgy1fxv3j184d8j30d60kywfl.jpg?lastModify=1625846474)![img](../images/006tNbRwgy1fxv3j184d8j30d60kywfl-20191130224147563.jpg?lastModify=1625846474)
+  ![img](../images/006tNbRwgy1fxv3j184d8j30d60kywfl.jpg?lastModify=1625846474)
 
-#### 2、public文件夹
+- public文件夹
 
-![img](../images/006tNbRwgy1fxv3js69x5j30n4050dg4.jpg?lastModify=1625846474)![img](../images/006tNbRwgy1fxv3js69x5j30n4050dg4-20191130224201307.jpg?lastModify=1625846474)
+  ![img](../images/006tNbRwgy1fxv3js69x5j30n4050dg4.jpg?lastModify=1625846474)
 
-1)favicon.ico
+  favicon.ico
 
-是浏览器tab上图标，也是这个项目的一个标志，也可以说是代表一个公司的标志。可以替换。
+  是浏览器tab上图标，也是这个项目的一个标志，也可以说是代表一个公司的标志。可以替换。
 
-2)index.html
+  index.html
 
-项目的入口文件，引用了第三方类库啊，还可以引入cdn
+  项目的入口文件，引用了第三方类库啊，还可以引入cdn
 
+  是项目的总容器，所有的内容存储在这个容器中。这个容器有且只能有一个。
 
+  manifest.json
 
-是项目的总容器，所有的内容存储在这个容器中。这个容器有且只能有一个。
+  允许将站点添加至主屏幕，是 PWA 提供的一项重要功能，当前 manifest.json 的标准仍属于草案阶段，Chrome 和 Firefox 已经实现了这个功能，微软正努力在 Edge 浏览器上实现，Apple 目前仍在考虑中
 
+- src文件夹
 
+  ![img](file:///Users/xiongxq/%E5%9D%9A%E6%9E%9C%E4%BA%91/notes/images/006tNbRwgy1fxv3nyp4mnj30o008fwfc.jpg?lastModify=1625846474?lastModify=1628007897)
 
-3)manifest.json
+  index.js
 
-允许将站点添加至主屏幕，是 PWA 提供的一项重要功能，当前 manifest.json 的标准仍属于草案阶段，Chrome 和 Firefox 已经实现了这个功能，微软正努力在 Edge 浏览器上实现，Apple 目前仍在考虑中
+  存放的是这个项目的核心内容，也就是我们的主要工作区域。其中，index.js文件是和index.html进行关联的文件的唯一接口。能够引用<App />的原因是文档内容的头部，有import App from './App';内容，就是为了将App.js的内容引入到index.js文件中。
 
-#### 3、src文件夹
+  App.js
 
-![img](../images/006tNbRwgy1fxv3nyp4mnj30o008fwfc.jpg?lastModify=1625846474)![img](../images/006tNbRwgy1fxv3nyp4mnj30o008fwfc-20191130224212969.jpg?lastModify=1625846474)
+  该类是继承react提供的component，export default App;是为了将App公开，index.js才能够引用。App.js继承了component的话，必须使用render进行渲染。return的内容是模板，类似于html结构的内容，就是jsx，jsx语法是react的主要语法。在这个文件中，只能用一个div容器，如果在div的同级目录添加别的内容，便会报错。
 
-1).index.js
+  className="App"，是引用到App.css的样式。注意，页面内容样式是就近原则，首先用App.css的样式，App.css是组件的样式，index.css是全局的样式。
 
-存放的是这个项目的核心内容，也就是我们的主要工作区域。
+  内容渲染的方式有两种，jsx语法(上面默认的内容)和React.createElement的方法。
 
-其中，index.js文件是和index.html进行关联的文件的唯一接口。
+- node_modules文件夹
 
-能够引用<App />的原因是文档内容的头部，有import App from './App';内容，就是为了将App.js的内容引入到index.js文件中。
-
-2).App.js
-
-该类是继承react提供的component，export default App;是为了将App公开，index.js才能够引用。App.js继承了component的话，必须使用render进行渲染。return的内容是模板，类似于html结构的内容，就是jsx，jsx语法是react的主要语法。在这个文件中，只能用一个div容器，如果在div的同级目录添加别的内容，便会报错。
-
-className="App"，是引用到App.css的样式。注意，页面内容样式是就近原则，首先用App.css的样式，App.css是组件的样式，index.css是全局的样式。
-
-内容渲染的方式有两种，jsx语法(上面默认的内容)和React.createElement的方法。
-
-#### 4、node_modules文件夹
-
-包管理工具下载安装了的包，比如webpack、gulp、grunt这些工具
+  包管理工具下载安装了的包，比如webpack、gulp、grunt这些工具
 
 
 
@@ -334,7 +278,7 @@ class LikeButton {
 
 ## 4、基础语法
 
-### 4、JSX---描述UI信息
+### 4.1 JSX---描述UI信息
 
 #### 如何用js对象表现一个DOM元素的结构？
 
@@ -345,7 +289,7 @@ class LikeButton {
 </div>
 ````
 
-观察发现，每个DOM元素包含的信息其实只有三个：标签名、属性、子元素。  
+观察发现，每个DOM元素包含的信息其实只有三个：标签名、属性、子元素。 
 其实上面这个 HTML 所有的信息我们都可以用合法的 JavaScript 对象来表示：
 
 ````
@@ -367,7 +311,7 @@ class LikeButton {
 }
 ````
 
-但是用 JavaScript 写起来太长了，结构看起来又不清晰，用 HTML 的方式写起来就方便很多了。  
+但是用 JavaScript 写起来太长了，结构看起来又不清晰，用 HTML 的方式写起来就方便很多了。 
 于是 React.js 就把 JavaScript 的语法扩展了一下，让 JavaScript 语言能够支持这种直接在 JavaScript 代码里面编写类似 HTML 标签结构的语法，这样写起来就方便很多了。编译的过程会把类似 HTML 的 JSX 结构转换成 JavaScript 的对象结构。
 
 因此，**所谓的 JSX 其实就是 JavaScript 对象。**
@@ -457,7 +401,7 @@ const goodWord = <strong> is good</strong>
 const badWord = <span> is not good</span>
 ````
 
-### 5、数据处理
+### 4.2 数据处理
 
 1、所有的模板要被一个根节点包含起来
 
@@ -547,11 +491,11 @@ setDate = (str)=>{
 
 
 
-### 6、双向数据绑定实现
+### 4.3 双向数据绑定实现
 
 双向数据绑定：model改变影响view，view改变影响model
 
-#### 约束性组件和非约束性组件
+### 4.4 约束性组件和非约束性组件
 
 1、非约束性组件，由原生DOM管理它的value。  
 下面这个 defaultValue 其实就是原生DOM中的 value 属性。其value值就是用户输入的内容，React完全不管理输入的过程。  
@@ -575,13 +519,13 @@ this.setState({name: e.target.value});
 
 
 
-### 7、map---渲染列表数据
+### 4.5 map---渲染列表数据
 
 
 
 
 
-### 8、事件对象
+### 4.6 事件对象
 
 事件对象(event)：在触发DOM上的某个事件是，会产生一个事件对象event。这个对象中包含着所有与事件有关的信息。
 
@@ -1029,75 +973,9 @@ PropTypes.element
 
 
 
-## 4、组件封装
-
-#### 1、新建组件目录文件并配置github和npm
-
-````
-//新建组件目录并初始化git
-mkdir mycomponent
-cd mycomponet
-git init
-
-//新建github仓库并将远程仓库关联至本地仓库
-...
-
-//登录npm账号并配置npm
-npm login
-...
-npm init
-
-//配置信息
-name: (component-lib)
-version: (1.0.0) 0.1.0
-description: an example component library built with React!
-entry point: (index.js) build/index.js
-test command:
-git repository:
-keywords:
-license: (ISC)
-About to write to /Users/alanbsmith/personal-projects/trash/package.json:
-
-{
-  "name": "component-lib",
-  "version": "0.1.0",
-  "description": "an example component library built with React!",
-  "main": "build/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Alan Smith <[alan.smith@example.com](mailto:a.bax.smith@gmail.com)> ([https://github.com/alanbsmith](https://github.com/alanbsmith))",
-  "license": "ISC"
-}
-
-Is this ok? (yes)
-````
-
-#### 2、添加目录和文件
 
 
-
-
-安装依赖包  
-
-````
- "devDependencies": {
-   "babel-cli": "^6.0.0",
-   "babel-core": "^6.14.0",
-   "babel-loader": "^6.2.5",
-   "babel-plugin-istanbul": "^2.0.1",
-   "babel-preset-es2015": "^6.14.0",
-   "babel-preset-react": "^6.24.1",
-   "react": "^15.6.1",
-   "react-dom": "^15.6.1"
-}
-````
-
-
-
-
-
-## 5、状态提升
+### 6、状态提升
 
 当某个状态被多个组件依赖或者影响的时候，就把该状态提升到这些组件的最近公共父组件中去管理，用 props 传递数据或者函数来管理这种依赖或着影响的行为。
 
@@ -1113,9 +991,144 @@ Is this ok? (yes)
 
 
 
-## 6、Redux
+### 10、Ref 和 Dom 操作
 
-### React 的 Context
+在 React.js 当中你基本不需要和 DOM 直接打交道。它提供了一系列的 on* 方法进行事件监听；以前通过手动 DOM 操作进行页面更新（例如借助 jQuery），而在 React.js 当中可以直接通过 setState 的方式重新渲染组件，从而达到页面更新的效果。
+
+但有些时候还是需要和 DOM 打交道。比如进入页面以后自动 focus 到某个输入框，需要调用 input.focus() 的 DOM API，动态获取某个 DOM 元素的尺寸来做后续的动画等等。
+
+**React.js 当中提供了ref属性,属性值是一个回调函数,这个回调函数的参数为指定的DOM元素自身或者挂载的组件实例，在组件挂载完成以后或者卸载的时候被调用。**
+
+#### 为DOM元素添加Ref
+
+````
+class AutoFocusInput extends Component {
+  componentDidMount () {
+    this.input.focus()
+  }
+
+  render () {
+    return (
+      <input ref={(input) => this.input = input} />//参数为input自身
+    )
+  }
+}
+````
+
+**注意：** 
+1、**在组件中使用ref时要求组件必须是class声明的**，而不能在函数式声明组件中使用ref，因为他们不存在实例。 
+2、ref遗留的问题：以前的ref属性获取到的是字符串，而DOM节点通过this.refs.textInput来获取。但是因为string类型的ref有一定的问题，在以后的react版本中将会被移除，建使用回调函数来替代。 
+3、**能不用 ref 就不用**。特别是要避免用 ref 来做 React.js 本来就可以做到的页面自动更新的操作和事件监听。
+
+
+
+### 11、dangerouslySetHTML 和 style 属性
+
+
+
+
+
+### 12、props.children 和容器类组件
+
+
+
+
+
+## 5、请求
+
+### 使用axios
+
+**详细使用方法可通过www.npmjs.com查看该模块文档**
+
+````
+//安装axios模块
+npm install axios --save
+
+//引入axios模块
+import Axios form 'axios';
+````
+
+##### 1、Performing a GET request
+
+````
+// Make a request for a user with a given ID
+axios.get('/user?ID=12345')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+ 
+// Optionally the request above could also be done as
+axios.get('/user', {
+    params: {
+      ID: 12345
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+````
+
+##### 2、Performing a POST request
+
+````
+axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+````
+
+##### 3、Performing multiple concurrent requests
+
+````
+function getUserAccount() {
+  return axios.get('/user/12345');
+}
+ 
+function getUserPermissions() {
+  return axios.get('/user/12345/permissions');
+}
+ 
+axios.all([getUserAccount(), getUserPermissions()])
+  .then(axios.spread(function (acct, perms) {
+    // Both requests are now complete
+  }));
+````
+
+### 使用fetch-jsonp
+
+
+
+
+
+
+
+
+
+## 6、组件通信
+
+### 父子组件通信
+
+
+
+### 发布订阅
+
+
+
+## 7、Redux
+
+### 7.1 React 的 Context
 
 **React.js 的 context**：某个组件只要往自己的context里面放了某些状态，这个组件之下的所有子组件都直接访问这个状态而不需要通过中间组件的传递。且只有它的子组件能够访问，它的父组件是不能访问，可以理解每个组件的 context 就是瀑布的源头只能往下流不能往上飞。
 
@@ -1177,7 +1190,7 @@ class Content extends Component {
 **Redux** 是一种架构模式（Flux架构的一种变种），它不关注你到底用什么库，你可以把它应用到 React 和 Vue，甚至跟 jQuery 结合都没有问题。  
 **React-redux** 是把 Redux 这种架构模式和 React.js 结合起来的一个库，就是 Redux 架构在 React.js 中的体现。
 
-### 动手实现Redux
+### 7.2 动手实现Redux
 
 一个可以被不同模块任意修改共享的数据状态就是魔鬼，一旦数据可以任意修改，所有对共享状态的操作都是不可预料的（某个模块 appState.title = null 你一点意见都没有），出现问题的时候 debug 起来就非常困难，这就是老生常谈的尽量避免全局变量。  
 矛盾就是：**“模块（组件）之间需要共享数据”，和“数据可能被任意修改导致不可预料的结果”之间的矛盾。**
@@ -1270,83 +1283,7 @@ store.dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《React.js 小书》' }) // 
 store.dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'blue' }) // 修改标题颜色
 ````
 
-### Redux使用
-
-
-
-## 6、请求
-
-### 使用axios
-
-**详细使用方法可通过www.npmjs.com查看该模块文档**
-
-````
-//安装axios模块
-npm install axios --save
-
-//引入axios模块
-import Axios form 'axios';
-````
-
-##### 1、Performing a GET request
-
-````
-// Make a request for a user with a given ID
-axios.get('/user?ID=12345')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
- 
-// Optionally the request above could also be done as
-axios.get('/user', {
-    params: {
-      ID: 12345
-    }
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-````
-
-##### 2、Performing a POST request
-
-````
-axios.post('/user', {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-````
-
-##### 3、Performing multiple concurrent requests
-
-````
-function getUserAccount() {
-  return axios.get('/user/12345');
-}
- 
-function getUserPermissions() {
-  return axios.get('/user/12345/permissions');
-}
- 
-axios.all([getUserAccount(), getUserPermissions()])
-  .then(axios.spread(function (acct, perms) {
-    // Both requests are now complete
-  }));
-````
-
-### 使用fetch-jsonp
+### 7.3 Redux使用
 
 
 
@@ -1354,11 +1291,15 @@ axios.all([getUserAccount(), getUserPermissions()])
 
 
 
-## 8、路由
+## 8、Mobx
 
-/*
 
-  react路由的配置：
+
+
+
+## 9、路由
+
+ react路由的配置：
     1、找到官方文档 https://reacttraining.com/react-router/web/example/basic
 
     2、安装  cnpm install react-router-dom --save
@@ -1445,44 +1386,54 @@ export default App;
 
 
 
-## 9、Ref 和 Dom 操作
+## 9、ant-design
 
-在 React.js 当中你基本不需要和 DOM 直接打交道。它提供了一系列的 on* 方法进行事件监听；以前通过手动 DOM 操作进行页面更新（例如借助 jQuery），而在 React.js 当中可以直接通过 setState 的方式重新渲染组件，从而达到页面更新的效果。
-
-但有些时候还是需要和 DOM 打交道。比如进入页面以后自动 focus 到某个输入框，需要调用 input.focus() 的 DOM API，动态获取某个 DOM 元素的尺寸来做后续的动画等等。
-
-**React.js 当中提供了ref属性,属性值是一个回调函数,这个回调函数的参数为指定的DOM元素自身或者挂载的组件实例，在组件挂载完成以后或者卸载的时候被调用。**
-
-#### 为DOM元素添加Ref
-
-````
-class AutoFocusInput extends Component {
-  componentDidMount () {
-    this.input.focus()
-  }
-
-  render () {
-    return (
-      <input ref={(input) => this.input = input} />//参数为input自身
-    )
-  }
-}
-````
-
-**注意：** 
-1、**在组件中使用ref时要求组件必须是class声明的**，而不能在函数式声明组件中使用ref，因为他们不存在实例。 
-2、ref遗留的问题：以前的ref属性获取到的是字符串，而DOM节点通过this.refs.textInput来获取。但是因为string类型的ref有一定的问题，在以后的react版本中将会被移除，建使用回调函数来替代。 
-3、**能不用 ref 就不用**。特别是要避免用 ref 来做 React.js 本来就可以做到的页面自动更新的操作和事件监听。
+### 9.1 基本使用
 
 
 
-## 10、dangerouslySetHTML 和 style 属性
+### 9.2 按需引入
 
+- 安装依赖
 
+  ```bash
+  $ yarn add react-app-rewired customize-cra babel-plugin-import less less-loader
+  ```
 
+- 修改package.json
 
+  ```json
+  ....
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  ....
+  ```
 
-## 11、props.children 和容器类组件
+- 根目录下创建config-overrides.js
+
+  ```javascript
+  //配置具体的修改规则
+  const { override, fixBabelImports,addLessLoader} = require('customize-cra');
+  module.exports = override(
+    fixBabelImports('import', {
+      libraryName: 'antd',
+      libraryDirectory: 'es',
+      style: true,
+    }),
+    addLessLoader({
+      lessOptions:{
+        javascriptEnabled: true,
+        modifyVars: { '@primary-color': 'green' },
+      }
+    }),
+  );
+  ```
+
+- 备注：不用在组件里亲自引入样式了，即：import 'antd/dist/antd.css'应该删掉
 
 
 

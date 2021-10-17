@@ -1,3 +1,7 @@
+https://mp.weixin.qq.com/s/HNd0Sr3mgiWVGSZA06hJEQ
+
+
+
 ## 1、分布式锁
 
 某商品库存剩10，用户A想买6个，用户B想买5个。

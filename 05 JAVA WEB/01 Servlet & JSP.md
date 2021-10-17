@@ -65,7 +65,7 @@
   而不能出现/xxx/*.扩展名
   只写/，表示缺省的servlet，用来处理其他所有Servlet都不处理的请求
 
-  ```java
+  ```xml
   <servlet>
       <servlet-name>ServletDemo2</servlet-name>
       <servlet-class>com.yunzike.ServletDemo2</servlet-class>
@@ -83,7 +83,7 @@
 
   可以通过如果在元素中配置一个load-on-srartup，让servlet在服务器启动时创建并调用init初始化，数字越小优先级越高。
 
-  ```java
+  ```xml
   <load-on-startup>2</load-on-startup>
   ```
 
@@ -92,7 +92,7 @@
 
   web容器会在创建servlet对象时将这些参数封装到ServletConfig对象中。
 
-  ```
+  ```xml
   <init-param>
     <param-name>data</param-name>
     <param-value>xxx</param-value>
@@ -328,17 +328,17 @@
 
 #### 1、ServletContext事件及监听器
 
-![image-20191205231652352](../../../../%25E5%259D%259A%25E6%259E%259C%25E4%25BA%2591/images/image-20191205231652352.png)
+![image-20191205231652352](../images/image-20191205231652352.png)
 
 #### 2、HTTPSession事件及监听器
 
-#### ![image-20191205231635731](../../../%25E5%259D%259A%25E6%259E%259C%25E4%25BA%2591/images/image-20191205231635731.png)
+#### ![image-20191205231635731](../images/image-20191205231635731.png)
 
 #### 3、ServletRequest事件及监听器
 
-![image-20191205231739562](../../../%25E5%259D%259A%25E6%259E%259C%25E4%25BA%2591/images/image-20191205231739562.png)
+![image-20191205231739562](../images/image-20191205231739562.png)
 
-![image-20191205231832159](../../../%25E5%259D%259A%25E6%259E%259C%25E4%25BA%2591/images/image-20191205231832159.png)
+![image-20191205231832159](../images/image-20191205231832159.png)
 
 ### 5.3 实现
 
