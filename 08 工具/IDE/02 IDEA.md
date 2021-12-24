@@ -25,6 +25,16 @@
   4.设置Serverlet版本：点击Java   EE，最下方选择Serverlet版本对应的Java EE版本，再点击Web Applic就能看到选择的Serverlet版本了 
 
   5.点击next，指定项目名字和路径，完成  
+  
+  
+  
+- 创建 Maven 项目
+
+  
+
+- 创建 Web 项目
+
+  
 
 ### 1.2 导入项目
 
@@ -44,7 +54,11 @@
 方法间显示分割线：Editor->General->Appearance->Show method separators 
 格式化代码空行设置：
 Editor->Code Style->Java->Blank Lines
-最上面三个改为1，格式化代码后多个空行合并成一个空行  
+最上面三个改为1，格式化代码后多个空行合并成一个空行 
+
+双斜杠注释紧跟代码头
+
+![image-20210928013301838](../../images/image-20210928013301838.png)
 
 ### 2.2 修改编码
 
@@ -63,10 +77,6 @@ Editor->Code Style->Java->Blank Lines
 - 显示方法参数
 
   Editor->General->Code Completion->Parameter Info
-
-- 文档提示（鼠标移到类上或方法上）
-
-  Editor->General->勾上Show quick documentation on mouse move 
 
 ### 2.5 配置 jdk、Maven、Git 、Tomcat、SVN
 
@@ -157,10 +167,6 @@ Editor->Code Style->Java->Blank Lines
   Configure->Settings->Appearance&Behaivor->System settings 
 
   去掉Reopen last project on startup的勾
-
-- 双斜杠注释紧跟代码头
-
-  ![image-20210928013301838](../../images/image-20210928013301838.png)
 
 - 配置JVM参数
 
@@ -348,46 +354,42 @@ https://mp.weixin.qq.com/s/CLw9P7y9ZQfVaxI6GRhoOw
 
 ### 常用插件
 
-activate-power-mode: 代码编辑特效 
-Key promoter：快捷键提示，可以关闭提示，没有快捷键的可以快速设置快捷键 
-Alibaba Java Coding Guidelines: 阿里代码规约 
-JRebel for IntelliJ：热部署 收费
-Material Theme UI:主题插件，修改图标
-RestfulToolkit：快速定位接口方法
-Mybatis Log Plugin:输出可执行的SQL语句
-Lombok：省掉手动的get/set方法
-Easy Code：数据库生成JavaBean
-.ignore：生成.gitignore文件
-Git Commit Template：git commit 模板
-GsonFormat：一键根据json文本生成java类
-java-bean-to-json：bean 和 json 相互生成
-Jclasslib Bytecode Viewer：查看类的字节码文件
-Leetcode Editor：LeetCode插件
-Nyan progress bar: 进度条美化
-GenerateAllSetter：Alt+Enter 一键生成所有方法
-Properties to YAML Converter：一键将Propereties配置文件转成YML文件
-
-| 插件名称             | 作用                                                         |
-| -------------------- | ------------------------------------------------------------ |
-| Free Mybatis plugin: | mapper 和 xml 跳转                                           |
-| Rainbow Brackets     | 彩虹括号                                                     |
-| CodeGlance           | 代码导航地图                                                 |
-| CamelCase:           | 驼峰转化，shift + alt + u                                    |
-| Translation          | 翻译                                                         |
-|                      |                                                              |
-|                      |                                                              |
-|                      |                                                              |
-|                      |                                                              |
-|                      |                                                              |
-|                      |                                                              |
-|                      |                                                              |
-| Save Actions         | 自动优化包导入、给没有修改的变量添加 final 修饰符、调用方法添加 this 等 |
-| Grep Console：       | 日志着色控制台显示                                           |
-| Statistic            | 代码统计                                                     |
-|                      |                                                              |
-|                      |                                                              |
-|                      |                                                              |
-|                      |                                                              |
+| 插件名称                       | 作用                                                         |
+| ------------------------------ | ------------------------------------------------------------ |
+| Free MyBatis plugin            | mapper 和 xml 跳转                                           |
+| Rainbow Brackets               | 彩虹括号                                                     |
+| CodeGlance                     | 代码导航地图                                                 |
+| CamelCase                      | 驼峰转化，shift + alt + u                                    |
+| Translation                    | 翻译                                                         |
+| activate-power-mode            | 代码编辑特效                                                 |
+| Key promoter                   | 快捷键提示，可以关闭提示，没有快捷键的可以快速设置快捷键     |
+| Alibaba Java Coding Guidelines | 阿里代码规约                                                 |
+| JRebel for IntelliJ            | 热部署 收费                                                  |
+| Material Theme UI              | 主题插件                                                     |
+| RestfulToolkit                 | 快速定位接口方法                                             |
+| Mybatis Log Plugin             | 输出可执行的SQL语句                                          |
+| Save Actions                   | 自动优化包导入、给没有修改的变量添加 final 修饰符、调用方法添加 this 等 |
+| Grep Console：                 | 日志着色控制台显示                                           |
+| Statistic                      | 代码统计                                                     |
+| Lombok                         | 省掉手动的get/set方法                                        |
+| Easy Code                      | 根据数据库表结构生成代码                                     |
+| .ignore                        | 生成.gitignore文件                                           |
+| Git Commit Template            | git commit 模板                                              |
+| GsonFormat                     | 一键根据json文本生成java类                                   |
+| java-bean-to-json              | bean 和 json 相互生成                                        |
+| Jclasslib Bytecode Viewer      | 查看类的字节码文件                                           |
+| Leetcode Editor                | LeetCode插件                                                 |
+| Nyan progress bar              | 进度条美化                                                   |
+| GenerateAllSetter              | Alt+Enter 一键生成所有方法                                   |
+| Properties to YAML Converter   | 一键将Propereties配置文件转成YML文件                         |
+| Codota                         | AI 代码提示                                                  |
+| Maven Helper                   | 显示冲突依赖并一键处理                                       |
+| JavaDoc                        | 快速生成文档注释，快捷键 alt + insert` ，mac是`contrl+回车   |
+| AceJump                        | 快速光标跳转的插件                                           |
+| RestfulTool                    | 接口测试工具                                                 |
+| Stop Coding                    | 防沉迷代码                                                   |
+|                                |                                                              |
+|                                |                                                              |
 
 
 
@@ -417,6 +419,8 @@ https://ai.youdao.com/gw.s#/
 
 A1kby90lsbGlJ8MqIpzfDKfpt0Z8Lmkg
 
+![image-20211127174940557](../../images/image-20211127174940557.png)
+
 最后我们打开idea看源码之类的就很方便了，选中文本右击会有“translate”，会有快捷键提示
 
 
@@ -425,7 +429,232 @@ A1kby90lsbGlJ8MqIpzfDKfpt0Z8Lmkg
 
 - IDEAVim
 
+  | 键   | 作用     |
+  | ---- | -------- |
+  | i    | 插入模式 |
+  | esc  | 光标模式 |
+  |      |          |
+  |      |          |
+
+  | 键       | 作用                                    |
+  | -------- | --------------------------------------- |
+  | k        | 上                                      |
+  | j        | 下                                      |
+  | h        | 左                                      |
+  | l        | 右                                      |
+  | w/W      | 下一个词组（以 空格和符号 / 空格 分割） |
+  | b/B      | 上一个词组（以 空格和符号 / 空格 分割） |
+  | f/F+字符 | 正向/反向跳转到指定的第一个字符         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+  |          |                                         |
+
+   IdeaVimExtension  插件
+
+  ```bash
+  # 在 ~/.ideavimrc 文件中添加以下设置并重启IDEA
+  # 支持Windows，MacOS和Linux
+  # Windows 需要开启英语美国键盘
+  # MacOS 需要开启英语美国键盘或ABC键盘
+  # Linux 需要使用fcitx输入法，通过fcitx-remote切换
   
+  set keep-english-in-normal-and-restore-in-insert
+  ```
+
+  ```bash
+  "==========================================
+  " Author:  hank.zhao
+  " Version: 0.1
+  " Email: hxzhenu@gmai.com
+  " Desc: my ideavim config file
+  "==========================================
+  " set leader key
+  nnoremap <SPACE> <Nop>
+  let mapleader = " "
+  
+  " search
+  set hlsearch
+  set incsearch
+  set smartcase
+  set ignorecase
+  set showmode
+  set de=on
+  set scrolloff=5
+  
+  " plugins
+  set easymotion
+  set surround
+  set argtextobj
+  set multiple-cursors
+  " Remap multiple-cursors shortcuts for Mac
+  nmap <C-n> <Plug>NextWholeOccurrence
+  xmap <C-n> <Plug>NextWholeOccurrence
+  nmap <C-x> <Plug>SkipOccurrence
+  xmap <C-x> <Plug>SkipOccurrence
+  nmap <C-p> <Plug>RemoveOccurrence
+  xmap <C-p> <Plug>RemoveOccurrence
+  nmap <S-C-n> <Plug>AllWholeOccurrences
+  xmap <S-C-n> <Plug>AllWholeOccurrences
+  
+  set exchange
+  set highlightedyank
+  set textobj-entire
+  set keep-english-in-normal-and-restore-in-insert
+  set NERDTree
+  set ReplaceWithRegister
+  " basic key mapping
+  nnoremap L $
+  vnoremap H ^
+  nnoremap H ^
+  vnoremap L $
+  nnoremap ; :
+  nnoremap ` ,
+  
+  inoremap jk <esc>
+  " nerdtree
+  map <leader>e :NERDTreeToggle<CR>
+  nnoremap <leader>d :NERDTreeFocus<CR>
+  
+  """ Idea specific settings ------------------
+  set ideajoin
+  set idearefactormode=keep
+  
+  " clear the highlighted search result
+  nnoremap <Leader>sc :nohlsearch<CR>
+  
+  " easymotion
+  map <leader>f <Plug>(easymotion-s)
+  
+  
+  " Window operation
+  
+  nnoremap <leader>ww <C-W>w
+  nnoremap <leader>wd <C-W>c
+  nnoremap <leader>wj <C-W>j
+  nnoremap <leader>wk <C-W>k
+  nnoremap <leader>wh <C-W>h
+  nnoremap <leader>wl <C-W>l
+  nnoremap <leader>ws <C-W>s
+  nnoremap <leader>w- <C-W>s
+  noremap <leader>wv <C-W>v
+  nnoremap <leader>w\| <C-W>v
+  
+  " copy and paste
+  noremap <Leader>y "*y
+  noremap <Leader>p "*p
+  noremap <Leader>P "0p
+  vnoremap Y "+y
+  
+  " Tab operation
+  nnoremap tn gt
+  nnoremap tp gT
+  
+  " Insert mode shortcut
+  inoremap <C-h> <Left>
+  inoremap <C-j> <Down>
+  inoremap <C-k> <Up>
+  inoremap <C-l> <Right>
+  inoremap <C-a> <Home>
+  inoremap <C-e> <End>
+  inoremap <C-d> <Delete>
+  
+  " Quit normal mode
+  nnoremap <Space>q  :action CloseProject<CR>
+  nnoremap <Space>Q  :qa!<CR>
+  
+  " edit vimrc
+  nnoremap <leader>ve :e ~/.ideavimrc<CR>
+  nnoremap <leader>vw :w!<CR>
+  nnoremap <leader>vs :source ~/.ideavimrc<CR>
+  
+  " intellij built in key map
+  
+  nnoremap <leader>a :action GotoAction<CR>
+  nnoremap <leader>b :action Bookmarks<CR>
+  nnoremap <leader>c :action GotoClass<CR>
+  "nnoremap <leader>e :action SearchEverywhere<CR>
+  "nnoremap <leader>f :action FindInPath<CR>
+  nnoremap <leader>gc :action Git.CompareWithBranch<CR>
+  nnoremap <leader>ga :action Annotate<CR>
+  nnoremap <leader>gh :action Vcs.ShowTabbedFileHistory<CR>
+  nnoremap <leader>r :action RecentFiles<CR>
+  nnoremap <leader>s :action SelectInProjectView<CR>
+  "toggle something
+  "toggle track vim action Id
+  nnoremap ta :action VimFindActionIdAction<CR>
+  
+  " run and debug
+  nnoremap ,d :action Debug<CR>
+  nnoremap ,r :action Run<CR>
+  nnoremap ,c :action CompileDirty<CR>
+  nnoremap ,b :action ToggleLineBreakpoint<CR>
+  nnoremap ,v :action ViewBreakpoints<CR>
+  nnoremap ,s :action Stop<CR>
+  " navigation
+  nnoremap gs :action GotoSuperMethod<CR>
+  nnoremap gb :action JumpToLastChange<CR>
+  nnoremap gi :action GotoImplementation<CR>
+  nnoremap gd :action GotoDeclaration<CR>
+  nnoremap gf :action FileStructurePopup<CR>
+  
+  " code actions
+  nnoremap U :action FindUsages<CR>
+  nnoremap R :action RenameElement<CR>
+  nnoremap == :action ReformatCode<CR>
+  vnoremap = :action ReformatCode<CR>
+  nnoremap -- :action OptimizeImports<CR>
+  nnoremap cc :action CommentByLineComment<CR>
+  vnoremap cc :action CommentByLineComment<CR>
+  ```
+
+  ##### 编辑
+
+  - `i`在光标之前，进入插入模式
+  - `I`在本行开头，进入插入模式
+  - `a`在光标之后，进入插入模式
+  - `A`在本行结尾，进入插入模式
+  - `o`在本行之后新增一行，并进入插入模式
+  - `O`在本行之前新增一行，并进入插入模式
+  - `s`删除当前字符，并进入插入模式
+  - `S`删除当前行中的所有文本，并进入插入模式
+  - `ciw` change (replace) entire word 修改光标位置单词
+  - `cw`  从光标位置开始, 修改单词
+  - `cc` 清空当前行, 然后进入插入模式
+
+  
+
+  - r - 替换当前字符
+  - J - 将下一行合并到当前行
+  - gJ - join line below to the current one without space in between
+  - gwip - reflow paragraph
+  - c$ - 从光标位置开始, 修改当前行
+  - xp - 当前字符后移
+  - u - 撤销
+  - Ctrl + r - 重复
+  - . - 再次执行上个命令
+
+  ##### 选择文本（可视化模式）
+
+  - v - 进入可视化模式, 移动光标高亮选择, 然后可以对选择的文本执行命令(比如y-复制)
+  - V - 进入可视化模式(行粒度选择)
+  - o - 切换光标到选择区开头/结尾
+  - Ctrl + v - 进入可视化模式([矩阵](https://www.zhihu.com/search?q=矩阵&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A397930551})选择)
+  - O - 切换光标到选择区的角
+  - aw - 选择当前单词
+  - ab - 选择被 () 包裹的区域(含括号)
+  - aB - 选择被 {} 包裹的区域(含花括号)
+  - ib - 选择被 () 包裹的区域(不含括号)
+  - iB - 选择被 {} 包裹的区域(不含花括号)
+  - Esc - 退出[可视化模式](https://www.zhihu.com/search?q=可视化模式&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A397930551})
 
 - AceJump
   | 快捷键                      | 作用                               |
